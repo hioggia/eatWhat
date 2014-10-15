@@ -85,6 +85,10 @@ var eventHandler = {
 		eventHandler.sceneJump('#main');
 	},
 	getDailyRestaurant: function(){
+		if(dataAccess.size()==0){
+			alert('你还没有添加过任何吃饭场所喔');
+			return;
+		}
 		var r = Math.floor(dataAccess.size()*Math.random());
 		el('[rel="dialy_title"]').innerText = dataAccess.get(r);
 		eventHandler.sceneJump('#daily');
@@ -93,6 +97,10 @@ var eventHandler = {
 		var d = ~~el('[rel="weekly_days"]').value;
 		if(d==0){
 			alert('这周的天数好像？嗯？我在地球吗？');
+			return;
+		}
+		if(dataAccess.size()==0){
+			alert('你还没有添加过任何吃饭场所喔');
 			return;
 		}
 		var a = [], r = [];
