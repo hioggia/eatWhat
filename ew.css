@@ -1,0 +1,16 @@
+body{font-family:'Hiragino','Microsoft Yahei';}
+p{margin:40px auto;text-align:center;font-size:20px;}
+button{font-size:32px;padding:8px;font-family:'Hiragino','Microsoft Yahei';border-radius:8px;background-image:-webkit-linear-gradient(top,#91aa2b,#385700);border:1px solid #333;color:#111;}
+input[type="number"]{width:50px;text-align:right;}
+ul{width:90%;margin:40px auto;overflow:hidden;}
+li{float:left;list-style-type:none;}
+label{display:block;width:160px;height:50px;margin:10px;border-radius:8px;border:1px solid #385700;}
+label input[type="checkbox"]{float:left;height:100%;margin:0 5px;width:10px;background-color:#91aa2b;-webkit-appearance:none;}
+label input[type="checkbox"]:checked{background-color:#bd2424;}
+.selected_container{font-size:72px;font-weight:700;text-align:center;background-image:-webkit-linear-gradient(top,#91aa2b,#385700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.calendar_container{width:90%;margin:40px auto;overflow:hidden;}
+.calendar_item{float:left;width:160px;height:80px;margin:10px;border-radius:8px;border:1px solid #385700;}
+.calendar_item .date{display:block;height:25px;border-radius:6px 0 0 0;padding-left:5px;color:white;background-image:-webkit-linear-gradient(left,#385700,rgba(56,87,0,0));}
+
+.scene{display:none;}
+.curr_scene{display:block;}

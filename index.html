@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="ew.css" />
+<body>
+<div id="main" class="scene curr_scene">
+	<p><button rel="create_menu_daily">今天吃什么？</button>
+	<p><button rel="create_menu_weekly">这周吃什么？</button><br />(这周一共有<input type="number" value="5" rel="weekly_days" />天)
+	<p><button rel="add_new_restaurant">添加新的吃饭场所</button>
+	<p><button rel="modify_exists_restaurants">管理现有的吃饭场所</button><br />(现在一共有<span rel="restaurant_count"></span>个吃饭场所)
+</div>
+
+<div id="manage" class="scene">
+	<p>点击选择并删去不要的吃饭场所
+	<ul rel="manage_list">
+	</ul>
+	<p><button rel="remove_selected_item">删除选中的</button>
+	<p><button rel="back_to_main">返回</button>
+</div>
+
+<div id="daily" class="scene">
+	<p>就决定是你了！
+	<div class="selected_container" rel="dialy_title">吉祥混沌</div>
+	<p><button rel="back_to_main">返回</button>
+</div>
+
+<div id="weekly" class="scene">
+	<p>就决定是你了！
+	<div class="calendar_container" rel="weekly_table">
+	</div>
+	<p><button rel="back_to_main">返回</button>
+</div>
+<script type="text/template" rel="manage_item">
+		<li><label><input type="checkbox" rel="list_item" value="{index}" />{name}</label>
+</script>
+<script type="text/template" rel="weekly_cell">
+	<div class="calendar_item">
+		<span class="date">{date}</span>
+		<span class="restaurant">{name}</span>
+	</div>
+</script>
+<script src="ew.js"></script>
