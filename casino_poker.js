@@ -44,13 +44,18 @@
 		rt[p]={小:(p-2)/12,大:1-(p-2)/12}
 	}}
 	,sp = {过期时间:0,数据:{}}
-	,ssamp = function(){var _={};for(var k in sp.数据){var __=sp.数据[k],___=sampr(k),_____={};for(var k2 in __){_____[k2]=__[k2]}_____.可信度=pc(___.可信度),_____.出大概率=pc(___.大),_____.出大基准=pc(rt[k].大),_____.出小概率=pc(___.小),_____.出小基准=pc(rt[k].小);_[k]=_____}console.table(_);return '样本过期时间: '+new Date(sp.过期时间).toLocaleString()}
+	,sp2 = {过期时间:0,数据:[]}
+	,ssamp = function(){var _={},_2={};for(var k in sp.数据){var __=sp.数据[k],___=sampr(k),_____={};for(var k2 in __){_____[k2]=__[k2]}_____.可信度=pc(___.可信度),_____.出大概率=pc(___.大),_____.出大基准=pc(rt[k].大),_____.出小概率=pc(___.小),_____.出小基准=pc(rt[k].小);_[k]=_____}for(var i=0;i<sp2.数据.length;i++){_2[i]={出小次数:sp2.数据[i][0],出大次数:sp2.数据[i][1],正确次数:sp2.数据[i][2],错误次数:sp2.数据[i][3]}}console.info('双卡模式:');console.table(_);console.info('无限模式:');console.table(_2);return '样本过期时间: '+new Date(sp.过期时间).toLocaleString()}
 	,gsamp = function(p){sp.数据[p]={总:0,大:0,小:0,平:0}}
 	,gls = function(){var _=localStorage['wg_casino_poker_samples'];if(_){sp=JSON.parse(_)}}
+	,gls2 = function(){var _=localStorage['wg_casino_poker_samples2'];if(_){sp2=JSON.parse(_)}}
 	,sls = function(){localStorage['wg_casino_poker_samples']=JSON.stringify(sp)}
-	,gav = function(){var _=localStorage['wg_casino_poker_config_2'];if(_){av=JSON.parse(_);}else{av=pav;localStorage['wg_casino_poker_config_2']=JSON.stringify(av)}}
+	,sls2 = function(){localStorage['wg_casino_poker_samples2']=JSON.stringify(sp2)}
+	,gav = function(){var _=localStorage['wg_casino_poker_config'];if(_){av=JSON.parse(_);}else{av=pav;localStorage['wg_casino_poker_config']=JSON.stringify(av)}}
 	,cst = function(){if(new Date().getTime()>sp.过期时间){var _=new Date();if(_.getHours()>=av.收集的样本在每天几点时过期){_=new Date(_.getTime()+24*60*60*1000)}_.setHours(av.收集的样本在每天几点时过期),_.setMinutes(0),_.setSeconds(0),_.setMilliseconds(0);sp={过期时间:_.getTime(),数据:{}}}}
+	,cst2 = function(){if(new Date().getTime()>sp2.过期时间){var _=new Date();if(_.getHours()>=av.收集的样本在每天几点时过期){_=new Date(_.getTime()+24*60*60*1000)}_.setHours(av.收集的样本在每天几点时过期),_.setMinutes(0),_.setSeconds(0),_.setMilliseconds(0);sp2={过期时间:_.getTime(),数据:[]}}}
 	,rsamp = function(){if(check.issinglecard()){return};cst();var p=read.doub(1).点数,r=read.doub(2).点数;if(!(p in sp.数据)){gsamp(p)}sp.数据[p].总++;if(r>p){sp.数据[p].大++}else if(r<p){sp.数据[p].小++}else{sp.数据[p].平++}sls()}
+	,rsamp2 = function(r){if(!check.issinglecard()){return};cst2();var c=read.doub(1).点数,i=sm.doubletimes;if(!sp2.数据[i]){sp2.数据[i]=[0,0,0,0]}sp2.数据[i][r+1]++;if(c==99 || c==14){sls2();return}if(c>=8){sp2.数据[i][1]++}else{sp2.数据[i][0]++}sls2()}
 	,sampr = function(p){var _=sp.数据[p];if(_.总-_.平==0){return null}_=_.小/(_.总-_.平);return {小:_,大:1-_,可信度:Math.min(1,sp.数据[p].总/av.样本可信度分母)}}
 	,ca = function(raw,pos){
 		var _ = raw.split('_');
@@ -159,6 +164,11 @@
 		},
 		hol:function(){
 			if(check.issinglecard()){
+				if(sp2[sm.doubletimes] && sp2.数据[sm.doubletimes][0]!=sp2.数据[sm.doubletimes][1]){
+					sout('过去的样本中,第'+sm.doubletimes+'次出现小的次数为'+sp2.数据[sm.doubletimes][0]+',出现大的次数为'+sp2.数据[sm.doubletimes][1],2);
+					return sp2.数据[sm.doubletimes][0]<sp2.数据[sm.doubletimes][1]?'HIGH':'LOW';
+				}
+				sout('过去没有样本,或样本中的大小概率一致,无参考价值',2);
 				return Math.random()>0.5?'HIGH':'LOW';
 			}
 			var card = read.doub(1);
@@ -272,7 +282,12 @@
 						sout('进入双倍',3);
 						sm.deck=0;
 						st.累计双倍游戏次数++;
-						uo.sleep(uo.doub);
+						/*if(check.issinglecard()){
+							sout('请手动赌大小！',3);
+							uo.sleep(uo.deck);
+						}else{*/
+							uo.sleep(uo.doub);
+						//}
 					}else if(check.canstart()){
 						sm.timeout=0;
 						sout('失败',3);
@@ -284,7 +299,12 @@
 					break;
 				case 3:
 					sm.deck=0;
-					uo.doub();
+					/*if(check.issinglecard()){
+						sout('请手动赌大小！',3);
+						uo.sleep(uo.deck);
+					}else{*/
+						uo.sleep(uo.doub);
+					//}
 					break;
 			}
 		},
@@ -304,6 +324,7 @@
 					if(check.canyesno()){
 						sm.timeout=0;
 						rsamp();
+						rsamp2(1);
 						sout('愉♂悦吧!双赔获胜',4);
 						sm.doubletimes++;
 						if(sm.doubletimes>st.双倍最高回数){
@@ -335,6 +356,7 @@
 					}else if(check.canstart()){
 						sm.timeout=0;
 						rsamp();
+						rsamp2(2);
 						if(check.issinglecard()){
 							sout('Holy shit!双倍失败!出现的卡片是:'+read.doub(1),4);
 							st.累计双倍赌错次数++;
@@ -376,18 +398,18 @@
 	,stop = function(){
 		clearTimeout(za);
 		sm.running=false;
-	},
-	pav = {
+	}
+	,pav = {
 		模式设定:[
 			{
 				模式名:'双倍赌到底模式',
 				样本收集几次后开始使用:20,
 				赌双倍遇到这些点数就不要继续:[],
-				赌双倍连续获胜几回合后进入谨慎状态:20,
+				赌双倍连续获胜几回合后进入谨慎状态:7,
 				赌双倍赢筹码达到多少后进入谨慎状态:20000,
 				赌双倍谨慎状态下遇到这些点数就不要继续:[7,8,9],
-				赌双倍连续获胜几回合后停止:20,
-				赌双倍筹码达到多少后停止:77777777,
+				赌双倍连续获胜几回合后停止:12,
+				赌双倍筹码达到多少后停止:200000,
 				允许一站到底:true,
 				本钱大于多少后开始一站到底:50000,
 				样本收集多少份才允许一站到底:30,
@@ -410,6 +432,7 @@
 	gav();
 	gsr();
 	gls();
+	gls2();
 	window.wg={};
 	Object.defineProperties(wg,{
 		debug:{get:dbg},
