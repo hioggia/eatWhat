@@ -1,6 +1,7 @@
 (function(){
 	var za
 	,zb
+	,et = 'ontouchstart' in window ? 'touchstart' : 'mousedown'
 	,md = 0
 	,nl = '\n'
 	,zc = ['color:#000000','color:#307730','color:#AAAAAA','color:white; background-color:#77A8F3','color:white; background-color:#0055CC','color:white; background-color:#B03939']
@@ -427,6 +428,9 @@
 		立即自动值守:true,
 		薛定谔陪你玩:true
 	}
+	,cc = $('<div class="wg"><style>.wg{text-align:right}.wg button{width:42px;height:22px;margin-right:4px}</style></div>').appendTo(document.body)
+	,cmd1 = $('<button>停止</button>').appendTo(cc)
+	,cmd2 = $('<button>设置</button>').appendTo(cc)
 	,av = null;
 	ca.prototype.toString = function(){if(this.花色!=99){return ['黑桃','红桃','方块','草花'][this.花色-1]+(this.点数>10?['J','Q','K','A'][this.点数-11]:this.点数)}return 'JOKER'};
 	gav();
@@ -444,5 +448,14 @@
 	if(av.立即自动值守){
 		boot();
 	}
+	cmd1.on(et,function(){
+		if(cmd1.text()=='停止'){
+			cmd1.text('启动');
+			stop();
+		}else{
+			cmd1.text('停止');
+			boot();
+		}
+	});
 	return '进入'+av.模式设定[md].模式名;
 })();
