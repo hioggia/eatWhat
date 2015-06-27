@@ -43,3 +43,5 @@ function findRanker(rn){
 		console.info('not found!');
 	}
 }
+
+console.info('输入findRanker开始搜索对手吧。');

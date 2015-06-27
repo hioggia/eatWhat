@@ -27,6 +27,31 @@ function mainCycle(){
 	setTimeout(mainCycle,delayTime);
 }
 
-var delayTime=1000;
+function playNext(){
+	$('.pop-bingo-result .btn-play-again').trigger('tap');
+	$('.pop-bet .btn-play-ok').trigger('tap');
+}
+
+function _autoNext(){
+	if($('#pop').children().size()>0){
+		playNext();
+	}
+	_autoNextID = setTimeout(_autoNext,delayTime);
+	return '输入 stopAutoNext 来停止自动开始的命令。'
+}
+
+function _stopAutoNext(){
+	clearTimeout(_autoNextID);
+	return 'Good Luck :)';
+}
+
+Object.defineProperties(window,{
+	autoNext:{get:_autoNext},
+	stopAutoNext:{get:_stopAutoNext}
+});
+
+var delayTime=1000, _autoNextID=0;
 
 mainCycle();
+
+console.info('自动点击已启用。');
