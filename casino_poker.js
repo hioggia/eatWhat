@@ -53,6 +53,8 @@
 	,gls2 = function(){var _=localStorage['wg_casino_poker_samples2'];if(_){sp2=JSON.parse(_)}}
 	,sls = function(){localStorage['wg_casino_poker_samples']=JSON.stringify(sp)}
 	,sls2 = function(){localStorage['wg_casino_poker_samples2']=JSON.stringify(sp2)}
+	,gmd = function(){var _=localStorage['wg_casino_poker_confmd'];if(_){md=~~_}else{delete localStorage['wg_casino_poker_config'];smd()}}
+	,smd = function(){localStorage['wg_casino_poker_confmd']=md}
 	,gav = function(){var _=localStorage['wg_casino_poker_config'];if(_){av=JSON.parse(_);}else{av=pav;localStorage['wg_casino_poker_config']=JSON.stringify(av)}}
 	,sav = function(){localStorage['wg_casino_poker_config']=JSON.stringify(av)}
 	,cst = function(){if(new Date().getTime()>sp.过期时间){var _=new Date();if(_.getHours()>=av.收集的样本在每天几点时过期){_=new Date(_.getTime()+24*60*60*1000)}_.setHours(av.收集的样本在每天几点时过期),_.setMinutes(0),_.setSeconds(0),_.setMilliseconds(0);sp={过期时间:_.getTime(),数据:{}}}}
@@ -405,7 +407,7 @@
 	,pav = {
 		模式设定:[
 			{
-				模式名:'双倍赌到底模式',
+				模式名:'高速模式',
 				样本收集几次后开始使用:20,
 				赌双倍遇到这些点数就不要继续:[],
 				赌双倍连续获胜几回合后进入谨慎状态:7,
@@ -421,6 +423,24 @@
 				自动值守不超过几小时:5,
 				自动值守停止后休息几小时再继续值守:0,
 				随机增加的休息小时数:0
+			},
+			{
+				模式名:'安全模式',
+				样本收集几次后开始使用:20,
+				赌双倍遇到这些点数就不要继续:[],
+				赌双倍连续获胜几回合后进入谨慎状态:7,
+				赌双倍赢筹码达到多少后进入谨慎状态:20000,
+				赌双倍谨慎状态下遇到这些点数就不要继续:[7,8,9],
+				赌双倍连续获胜几回合后停止:12,
+				赌双倍筹码达到多少后停止:200000,
+				允许一站到底:true,
+				本钱大于多少后开始一站到底:50000,
+				样本收集多少份才允许一站到底:30,
+				点击动作延迟几秒:2,
+				随机增加的延迟秒数:2,
+				自动值守不超过几小时:3,
+				自动值守停止后休息几小时再继续值守:1,
+				随机增加的休息小时数:1
 			}
 		],
 		收集的样本在每天几点时过期:4,
@@ -430,24 +450,14 @@
 		立即自动值守:true,
 		薛定谔陪你玩:true
 	}
-	,pw = $('<div class="pw" style="display:none">\
-				<style>.pw{position:absolute;left:0;top:0;z-index:100;background-color:white;padding:20px}</style>\
-				<p><button data-option="y1" data-operate="arr">遇到这些点数就不要继续:<span></span></button></p>\
-				<p><button data-option="y2" data-operate="num">连续获胜几回合后进入谨慎状态:<span></span></button></p>\
-				<p><button data-option="y3" data-operate="num">赢筹码达到多少后进入谨慎状态:<span></span></button></p>\
-				<p><button data-option="y4" data-operate="arr">谨慎状态下遇到这些点数就不要继续:<span></span></button></p>\
-				<p><button data-option="y5" data-operate="num">连续获胜几回合后停止:<span></span></button></p>\
-				<p><button data-option="y6" data-operate="num">筹码达到多少后停止:<span></span></button></p>\
-				<p><button data-option="y7" data-operate="tof">允许一站到底:<span></span></button></p>\
-				<p><button data-option="y8" data-operate="num">本钱大于多少后开始一站到底:<span></span></button></p>\
-			</div>').appendTo(document.body)
 	,cc = $('<div class="wg"><style>.wg{text-align:right}.wg button{width:42px;height:22px;margin-right:4px}</style></div>').appendTo(document.body)
 	,cmd1 = $('<button>停止</button>').appendTo(cc)
-	,cmd2 = $('<button>设置</button>').appendTo(cc)
+	,cmd2 = $('<button>高速</button>').appendTo(cc)
 	,getValueByRel = function(el){switch(el.dataset.option){case 'y1':return av.模式设定[md].赌双倍遇到这些点数就不要继续;case 'y2':return av.模式设定[md].赌双倍连续获胜几回合后进入谨慎状态;case 'y3':return av.模式设定[md].赌双倍赢筹码达到多少后进入谨慎状态;case 'y4':return av.模式设定[md].赌双倍谨慎状态下遇到这些点数就不要继续;case 'y5':return av.模式设定[md].赌双倍连续获胜几回合后停止;case 'y6':return av.模式设定[md].赌双倍筹码达到多少后停止;case 'y7':return av.模式设定[md].允许一站到底;case 'y8':return av.模式设定[md].本钱大于多少后开始一站到底}}
 	,setValueByRel = function(el,val){switch(el.dataset.option){case 'y1':av.模式设定[md].赌双倍遇到这些点数就不要继续=val;break;case 'y2':av.模式设定[md].赌双倍连续获胜几回合后进入谨慎状态=val;break;case 'y3':av.模式设定[md].赌双倍赢筹码达到多少后进入谨慎状态=val;break;case 'y4':av.模式设定[md].赌双倍谨慎状态下遇到这些点数就不要继续=val;break;case 'y5':av.模式设定[md].赌双倍连续获胜几回合后停止=val;break;case 'y6':av.模式设定[md].赌双倍筹码达到多少后停止=val;break;case 'y7':av.模式设定[md].允许一站到底=val;break;case 'y8':av.模式设定[md].本钱大于多少后开始一站到底=val;break}sav()}
 	,av = null;
 	ca.prototype.toString = function(){if(this.花色!=99){return ['黑桃','红桃','方块','草花'][this.花色-1]+(this.点数>10?['J','Q','K','A'][this.点数-11]:this.点数)}return 'JOKER'};
+	gmd();
 	gav();
 	gsr();
 	gls();
@@ -463,6 +473,9 @@
 	if(av.立即自动值守){
 		boot();
 	}
+	if(md==1){
+		cmd2.text('安全');
+	}
 	cmd1.on(et,function(){
 		if(cmd1.text()=='停止'){
 			cmd1.text('启动');
@@ -473,22 +486,16 @@
 		}
 	});
 	cmd2.on(et,function(){
-		pw.toggle();
-	});
-	pw.find('button').on(et,function(){
-		var el = this;
-		var v = getValueByRel(el);
-		if(el.dataset.operate=='tof'){
-			$('span',el).text(!v);
-			setValueByRel(el,!v);
+		if(cmd2.text()=='高速'){
+			cmd2.text('安全');
+			md=1;
+			smd();
 		}else{
-			var i = prompt(el.text(),v);
-			sout(i);
+			cmd2.text('高速');
+			md=0;
+			smd();
 		}
-		sout(el.dataset.operate);
-	}).each(function(i,el){
-		var v = getValueByRel(el);
-		$('span',el).text(v);
+		sout('切换至'+av.模式设定[md].模式名);
 	});
 	return '进入'+av.模式设定[md].模式名;
 })();
