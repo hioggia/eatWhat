@@ -248,7 +248,14 @@
 		}
 	}
 	,uo = {
-		sleep:function(caf){if(sm.timeout++>20){location.reload()}var slt=av.模式设定[md].点击动作延迟几秒+Math.random()*av.模式设定[md].随机增加的延迟秒数;sout('Relax! 我只睡'+Math.round(slt*10)/10+'秒',2);za=setTimeout(caf,slt*1000)},
+		sleep:function(caf){
+			if(sm.timeout++>20){
+				location.reload()
+			}
+			var slt=av.模式设定[md].点击动作延迟几秒+Math.random()*av.模式设定[md].随机增加的延迟秒数;
+			sout('Relax! 我只睡'+Math.round(slt*10)/10+'秒',2);
+			za=setTimeout(caf,slt*1000)
+		},
 		deck:function(){
 			switch(sm.deck){
 				case 0:
@@ -374,7 +381,7 @@
 						}else{
 							sout('Holy shit!双倍失败!出现的卡片是:'+read.doub(2),4);
 							st.累计双倍赌错次数++;
-							gsay('哇咔咔咔～活该！让你不听天才少女的忠告！'+nl+'薛定谔用非常亲切和蔼地表情对你说道。','这！这不可能！一定是CY使诈！薛定谔愤怒地一拳砸在你的屏幕上。');
+							gsay('哇咔咔咔～活该！让你不听天才少女的忠告！'+nl+'薛定谔用非常亲切和蔼地表情对你说道。'+nl+'你比我爸爸差多了!','这！这不可能！一定是CY使诈！薛定谔愤怒地一拳砸在你的屏幕上。');
 						}
 						sm.doubleup=0;
 						sm.doubletimes=0;
