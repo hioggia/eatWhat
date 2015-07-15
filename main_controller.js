@@ -1,5 +1,5 @@
 var host = 'http://hioggia.github.io/eatWhat/';
-host = 'http://localhost:8011/';
+//host = 'http://localhost:8011/';
 
 var createScriptLoader = function(file,readySerif){
 	var s = document.createElement('script');
