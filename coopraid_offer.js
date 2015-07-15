@@ -1,3 +1,4 @@
-function autoTapJoin(){$('.btn-usual-join').trigger('tap')}
-setInterval(autoTapJoin,100);
-console.info('自动参加已启用。')
+function tapJoin(){$('.btn-usual-join').trigger('tap')}
+function autoTapJoin(){setTimeout(tapJoin,100)}
+$('.prt-wanted-list').on('tap',autoTapJoin);
+console.info('单击参加已启用。')
