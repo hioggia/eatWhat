@@ -54,4 +54,4 @@ var delayTime=1000, _autoNextID=0;
 
 mainCycle();
 
-console.info('自动点击已启用。');
+console.info('自动点击已启用。输入 autoNext 可自动继续下一盘Bingo');
