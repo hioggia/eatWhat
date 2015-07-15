@@ -28,3 +28,7 @@ else if(/event\/teamraid\d+\/ranking_guild\/detail/i.test(location.hash) || /eve
 else if(/raid\/\d+/i.test(location.hash) || /raid_multi\/\d+/i.test(location.hash)){
 	createScriptLoader('raid_helper.js?v=1','请稍后。');
 }
+
+else if(/coopraid\/offer/i.test(location.hash)){
+	createScriptLoader('coopraid_offer.js?v=1','请稍后。');
+}
