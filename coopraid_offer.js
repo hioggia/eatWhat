@@ -18,5 +18,6 @@ function autoFindRoom(comment){
 	_autoRenew();
 }
 
+var _waitSec = 3;
 function _renewList(){_autoRenew();$('.btn-refresh-list').trigger('tap')}
-function _autoRenew(){if($('.loading').is(':visible')){setTimeout(_autoRenew,50)}else{setTimeout(_renewList,2000)}}
+function _autoRenew(){if($('.loading').is(':visible')){setTimeout(_autoRenew,50)}else{setTimeout(_renewList,1000*_waitSec)}}
