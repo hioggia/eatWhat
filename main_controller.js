@@ -56,5 +56,5 @@ else if(/raid\/\d+/i.test(location.hash) || /raid_multi\/\d+/i.test(location.has
 }
 
 else if(/coopraid\/offer/i.test(location.hash)){
-	createScriptLoader('coopraid_offer.js?v=1','请稍后。');
+	createScriptLoader('coopraid_offer.js?v=2','请稍后。');
 }
