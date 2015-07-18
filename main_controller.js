@@ -1,10 +1,36 @@
 var host = 'http://hioggia.github.io/eatWhat/';
-//host = 'http://localhost:8011/';
+
+delete window.onerror;
+delete console.log;
+delete console.warn;
+
+if(document.getElementById('wg_script_host')){
+	host = document.getElementById('wg_script_host').innerHTML;
+}else{
+	alert('please update your kajikano extensions.');
+}
+
+
+Game.reportError = function(msg, url, line, column, err, callback){console.log(msg, url, line, column, err, callback)}
 
 var createScriptLoader = function(file,readySerif){
+	console.log('loading '+file+' ...');
 	var s = document.createElement('script');
 	if(readySerif==undefined){readySerif='别急，很快就要开始了。'}
-	var t = "function mp(){var s=document.createElement('script');s.onerror=function(){location.reload()};s.src='"+host+file+"';document.body.appendChild(s)};function sb(){if(window.$ && !$('#ready').is(':visible')){setTimeout(mp,3000);console.info('"+readySerif+"')}else{setTimeout(function(){sb()},1000)}}sb()";
+	var t = "function mp(){\
+		var s=document.createElement('script');\
+		s.onerror=function(){location.reload()};\
+		s.src='"+host+file+"';\
+		document.body.appendChild(s)\
+	};\
+	function sb(){\
+		if(window.$ && $('#ready').size()>0 && !$('#ready').is(':visible')){\
+			setTimeout(mp,3000);\
+			console.info('"+readySerif+"')\
+		}else{\
+			setTimeout(sb,1000)\
+		}\
+	}sb()";
 	s.innerHTML = t;
 	document.body.appendChild(s);
 };
