@@ -15,7 +15,7 @@ require('lib/raid/display').mBossGaugeHp = function(a,b,c,d){
 setHpAll();
 console.info('血量显示已启用。');
 
-function flashBattle(){
+function blitz(){
 	if(require && require.specified('lib/raid/motion')){
 		require('lib/raid/motion').mWaitAll = function(a, b) {
             b.playtime = 0;
@@ -24,8 +24,10 @@ function flashBattle(){
         };
         console.info('闪电战术已启用。');
 	}else{
-		setTimeout(flashBattle,1000);
+		setTimeout(blitz,1000);
 	}
 }
 
-flashBattle();
+if(confirm('撕吗？')){
+	blitz();
+}
