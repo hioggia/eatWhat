@@ -28,6 +28,8 @@ function blitz(){
 	}
 }
 
-if(confirm('撕吗？')){
+var cmd = $('<button style="position:absolute;right:10px;bottom:5px;z-index:5;">Blitz!</button>').appendTo('.btn-attack-start');
+cmd.on('tap',function(){
+	cmd.remove();
 	blitz();
-}
+});
