@@ -28,8 +28,18 @@ function blitz(){
 	}
 }
 
-var cmd = $('<button style="position:absolute;right:10px;bottom:5px;z-index:5;">Blitz!</button>').appendTo('.btn-attack-start');
-cmd.on('tap',function(){
-	cmd.remove();
-	blitz();
-});
+function appendBtn(){
+	if($('.btn-attack-start').size()>0){
+		var cmd = $('<button style="position:absolute;right:10px;bottom:5px;z-index:5;">Blitz!</button>').appendTo('.btn-attack-start');
+		cmd.on('tap',function(){
+			cmd.off('tap');
+			cmd.remove();
+			blitz();
+			//$('.btn-attack-start').trigger('tap');
+		});
+	}else{
+		setTimeout(appendBtn,500);
+	}
+}
+
+appendBtn();
