@@ -254,6 +254,7 @@
 			}
 			var slt=av.模式设定[md].点击动作延迟几秒+Math.random()*av.模式设定[md].随机增加的延迟秒数;
 			sout('Relax! 我只睡'+Math.round(slt*10)/10+'秒',2);
+			$('.btn-usual-ok:visible').trigger('tap');
 			za=setTimeout(caf,slt*1000)
 		},
 		deck:function(){

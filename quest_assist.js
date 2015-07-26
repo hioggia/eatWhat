@@ -30,3 +30,5 @@ $('.contents').on('tap','#tab-multi',function(){
 	console.log('refresh');
 	Game.view.initialize(require('backbone'));
 });
+
+console.info('你发现了什么？');

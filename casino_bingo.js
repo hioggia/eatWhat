@@ -28,6 +28,7 @@ function mainCycle(){
 }
 
 function playNext(){
+	$('.btn-usual-ok').trigger('tap');
 	$('.pop-bingo-result .btn-play-again').trigger('tap');
 	$('.pop-bet .btn-play-ok').trigger('tap');
 }
