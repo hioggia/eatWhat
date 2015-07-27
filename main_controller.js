@@ -69,6 +69,8 @@ var inspector = function(){
 	else if(/quest\/assist/i.test(location.hash)){
 		createScriptLoader('quest_assist.js?v=1','请稍后。');
 	}
+
+	setTimeout(inspector,1000);
 };
 
 inspector();
