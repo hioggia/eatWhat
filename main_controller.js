@@ -17,7 +17,6 @@ Game.reportError = function(msg, url, line, column, err, callback){console.log(m
 var createScriptLoader = function(file,readySerif){
 	console.log('loading '+file+' ...');
 	var s = document.createElement('script');
-	s.onload = function(){inspected=true};
 	if(readySerif==undefined){readySerif='别急，很快就要开始了。'}
 	var t = "function mp(){\
 		var s=document.createElement('script');\
@@ -35,6 +34,7 @@ var createScriptLoader = function(file,readySerif){
 	}sb()";
 	s.innerHTML = t;
 	document.body.appendChild(s);
+	inspected = true;
 };
 
 var inspector = function(){
