@@ -4,16 +4,22 @@ function renewHpAll(){setHpAll();setTimeout(renewHpAll,1000);}
 $('<style>.wg_hpshow{position:absolute;color:#f2eee2;text-shadow:0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d;font-size:0.7em;bottom:-5px;right:5px;}</style>').appendTo(document.body);
 
 //var m_bghf = require('lib/raid/display').mBossGaugeHpForLog;
-require('lib/raid/display').mBossGaugeHp = function(a,b,c,d){
-	a.call(function(a, b, c) {
-        require('lib/raid/display').mBossGaugeHpForLog(a, b, c);
-		setHpAll();
-    },
-    [b, c, d]);
-};
+function hpvis(){
+	if(require && require.specified('lib/raid/display')){
+		require('lib/raid/display').mBossGaugeHp = function(a,b,c,d){
+			a.call(function(a, b, c) {
+		        require('lib/raid/display').mBossGaugeHpForLog(a, b, c);
+				setHpAll();
+		    },
+		    [b, c, d]);
+		};
 
-setHpAll();
-console.info('血量显示已启用。');
+		setHpAll();
+		console.info('血量显示已启用。');
+	}else{
+		setTimeout(hpvis,1000);
+	}
+}
 
 function blitz(){
 	if(require && require.specified('lib/raid/motion')){
@@ -42,4 +48,5 @@ function appendBtn(){
 	}
 }
 
+hpvis();
 appendBtn();
