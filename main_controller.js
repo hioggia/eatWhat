@@ -43,7 +43,7 @@ var inspector = function(){
 	}
 	
 	if(/casino\/game\/slot/i.test(location.hash)){
-		createScriptLoader('casino_slot.js?v=1');
+		createScriptLoader('casino_slot.js?v=2');
 	}
 
 	else if(/casino\/game\/poker/i.test(location.hash)){
