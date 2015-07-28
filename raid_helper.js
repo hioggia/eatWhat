@@ -25,7 +25,7 @@ function hpvis(){
 	//}
 }
 
-var rate = 3;
+var rate = 2;
 
 function blitz(){
 	if(require && require.specified('lib/raid/motion')){
