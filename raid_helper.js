@@ -25,10 +25,12 @@ function hpvis(){
 	//}
 }
 
+var rate = 3;
+
 function blitz(){
 	if(require && require.specified('lib/raid/motion')){
 		require('lib/raid/motion').mWaitAll = function(a, b) {
-			b.playtime = (b.playtime || 10)/5;
+			b.playtime = (b.playtime || 10)/rate;
             //b.playtime = 0;
             for (var c = 0; c <= a.length - 1; c++) for (var d = 0; d <= a[c].timeline.length - 1; d++) a[c].timeline[d].wait(b.playtime);
             return ! 0
@@ -42,7 +44,9 @@ function blitz(){
 function appendBtn(){
 	//try{
 	if($ && $('.btn-attack-start').size()>0){
-		var cmd = $('<button style="position:absolute;top:0;z-index:5;width:45px;height:22px">Blitz!</button>').appendTo(document.body);
+		blitz();
+		/*
+		var cmd = $('<button style="position:absolute;top:50px;z-index:500;width:45px;height:22px">Blitz!</button>').appendTo(document.body);
 		cmd.on('tap',function(){
 			cmd.off('tap');
 			cmd.remove();
@@ -51,6 +55,7 @@ function appendBtn(){
 			}
 			//$('.btn-attack-start').trigger('tap');
 		});
+		*/
 	}else{
 		setTimeout(appendBtn,500);
 	}
