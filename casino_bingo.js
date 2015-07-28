@@ -55,4 +55,18 @@ var delayTime=1000, _autoNextID=0;
 
 mainCycle();
 
-console.info('自动点击已启用。输入 autoNext 可自动继续下一盘Bingo');
+var cc = $('<div class="wg"><style>.wg{position:absolute;z-index:20;top:0}.wg button{width:76px;height:22px;margin-right:4px}</style></div>').appendTo(document.body),
+	cmd1 = $('<button>自动下一局</button>').appendTo(cc),
+	et = 'ontouchstart' in window ? 'touchstart' : 'mousedown';
+
+cmd1.on(et,function(){
+	if(cmd1.text()=='停止'){
+		cmd1.text('自动下一局');
+		_stopAutoNext();
+	}else{
+		cmd1.text('停止');
+		_autoNext();
+	}
+});
+
+console.info('自动点击已启用。');

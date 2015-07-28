@@ -458,7 +458,7 @@
 		立即自动值守:true,
 		薛定谔陪你玩:true
 	}
-	,cc = $('<div class="wg"><style>.wg{position:absolute;z-index:10;top:0}.wg button{width:42px;height:22px;margin-right:4px}</style></div>').appendTo(document.body)
+	,cc = $('<div class="wg"><style>.wg{position:absolute;z-index:20;top:0}.wg button{width:42px;height:22px;margin-right:4px}</style></div>').appendTo(document.body)
 	,cmd1 = $('<button>停止</button>').appendTo(cc)
 	,cmd2 = $('<button style="display:none">高速</button>').appendTo(cc)
 	,getValueByRel = function(el){switch(el.dataset.option){case 'y1':return av.模式设定[md].赌双倍遇到这些点数就不要继续;case 'y2':return av.模式设定[md].赌双倍连续获胜几回合后进入谨慎状态;case 'y3':return av.模式设定[md].赌双倍赢筹码达到多少后进入谨慎状态;case 'y4':return av.模式设定[md].赌双倍谨慎状态下遇到这些点数就不要继续;case 'y5':return av.模式设定[md].赌双倍连续获胜几回合后停止;case 'y6':return av.模式设定[md].赌双倍筹码达到多少后停止;case 'y7':return av.模式设定[md].允许一站到底;case 'y8':return av.模式设定[md].本钱大于多少后开始一站到底}}
