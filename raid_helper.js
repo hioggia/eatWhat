@@ -1,6 +1,6 @@
 function setHp(index){$('.btn-enemy-gauge[target='+ (index+1)+']').html('<span class="wg_hpshow">'+stage.pJsnData.boss.param[index].hp+'/'+stage.pJsnData.boss.param[index].hpmax)}
 function setHpAll(){if(window.stage &&stage.pJsnData){for(var l=stage.pJsnData.boss.param.length;l>0;l--){setHp(l-1)}}else{setTimeout(setHpAll,500)}}
-function setStyle(){$('<style>.wg_hpshow{position:absolute;color:#f2eee2;text-shadow:0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d;font-size:0.7em;bottom:-5px;right:5px;}</style>').appendTo(document.body);}
+function setStyle(){$('<style>.wg_hpshow{position:absolute;color:#f2eee2;text-shadow:0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d;font-size:0.7em;bottom:-5px;right:5px;}.wg_bzswch{position:absolute;top:279px;left:-3px;width:36px;height:16px;z-index:10;padding:0;font-size:0.75em;margin:0;border:1px solid #fff;border-radius:3px;background-color:#208820;color:#fff;font-weight:400;outline:none}.wg_bzswch.on{background-color:#ADAD94;}.wg_bzswch::before{content:"闪电中"}.wg_bzswch.on::before{content:"快充电"}</style>').appendTo(document.body);}
 
 //var m_bghf = require('lib/raid/display').mBossGaugeHpForLog;
 function hpvis(){
@@ -25,44 +25,31 @@ function hpvis(){
 	//}
 }
 
-var rate = 2;
+var rate = 3;
 
-function blitz(){
-	if(require && require.specified('lib/raid/motion')){
+function blitz(playtime){
+	return playtime/rate;
+}
+
+function appbz(){
+	if(require && $ && require.specified('lib/raid/motion') && $('.btn-attack-start').size()>0){
 		require('lib/raid/motion').mWaitAll = function(a, b) {
-			b.playtime = (b.playtime || 10)/rate;
+			b.playtime = blitz(b.playtime || 10);
             //b.playtime = 0;
             for (var c = 0; c <= a.length - 1; c++) for (var d = 0; d <= a[c].timeline.length - 1; d++) a[c].timeline[d].wait(b.playtime);
             return ! 0
         };
+        var cmd = $('<button class="wg_bzswch"></button>').appendTo('#wrapper');
+        cmd.on('tap',function(){
+        	cmd.toggleClass('on');
+        	rate = 4-rate;
+			console.log('speed rate change to',rate);
+        });
         console.info('闪电战术已启用。');
 	}else{
-		setTimeout(blitz,1000);
+		setTimeout(appbz,1000);
 	}
-}
-
-function appendBtn(){
-	//try{
-	if($ && $('.btn-attack-start').size()>0){
-		blitz();
-		/*
-		var cmd = $('<button style="position:absolute;top:50px;z-index:500;width:45px;height:22px">Blitz!</button>').appendTo(document.body);
-		cmd.on('tap',function(){
-			cmd.off('tap');
-			cmd.remove();
-			if($('.btn-attack-start').size()>0){
-				blitz();
-			}
-			//$('.btn-attack-start').trigger('tap');
-		});
-		*/
-	}else{
-		setTimeout(appendBtn,500);
-	}
-	//}catch(ex){
-	//	console.log('appendBtn',ex);
-	//}
 }
 
 hpvis();
-appendBtn();
+appbz();
