@@ -7,11 +7,14 @@ console.info('单击参加已启用。')
 var _keyword = /サジ|匙|ex3\-3|ex3/i,_joinPandemo=false;
 function _findAndTapSaji(){_autoSaji();$('.prt-wanted-room').each(function(i,el){
 	var t=$('.txt-room-comment',el).text();
+	if($(el).is('[data-taped]')){return}
 	if(_joinPandemo && $('.prt-invite-type-4',el).size()>0 && $('.prt-member-image',el).children().size()<3){
-		$(el).trigger('tap');console.log(t)
+		$(el).trigger('tap');console.log(t);
+		$(el).attr('data-taped','1');
 	}
 	if(_keyword.test(t) && $('.prt-member-image',el).children().size()<3 && $('.prt-invite-type-2,.prt-invite-type-3',el).size()==0){
-		$(el).trigger('tap');console.log(t)
+		$(el).trigger('tap');console.log(t);
+		$(el).attr('data-taped','1');
 	}
 })}
 function _autoSaji(){setTimeout(_findAndTapSaji,50)}
