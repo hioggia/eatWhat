@@ -80,19 +80,40 @@ function getPressedCharCode(e){
 		return;
 	}
 	var cmdChar = String.fromCharCode(e.charCode);
-	//console.log('pressed:',cmdChar,e);
 	switch(cmdChar){
 		case 'a':
 		case '工':
 		case 'ち':
 			commandToFight('attack',cmdChar);
 			break;
-		case '1':
+		/*case '1':
 		case '2':
 		case '3':
 		case '4':
+		case '5':
+			commandToFight('character',cmdChar);
+			break;*/
+		case 'q':
+		case 'w':
+		case 'e':
+		case 'r':
+		case '金':
+		case '人':
+		case '月':
+		case '白':
+		case 'た':
+		case 'て':
+		case 'い':
+		case 'す':
+			var cmd = {q:1,w:2,e:3,r:4,金:1,人:2,月:3,白:4,た:1,て:2,い:3,す:4};
 			commandToFight('ability',cmd[cmdChar]);
 			break;
+		/*case 'o':
+			commandToFight('ougi',cmdChar);
+			break;
+		case 'n':
+			commandToFight('next',cmdChar);
+			break;*/
 	}
 }
 
