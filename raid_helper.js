@@ -53,3 +53,19 @@ function appbz(){
 
 hpvis();
 appbz();
+
+function commandToFight(type,cmd1,cmd2,cmd3,cmd4){
+	if(type=='attack'){
+		$('.btn-attack-start').trigger('tap');
+	}else if(type=='ability'){
+		var chara = ~~$('.prt-command .prt-member .invisible').attr('pos')+1;
+		$('.prt-command .prt-command-chara[pos='+chara+'] .prt-ability-list div:nth-child('+cmd1+').btn-ability-available').trigger('tap');
+	}else if(type=='character'){
+		$('.btn-command-back.display-on').trigger('tap');
+		$('.prt-member .btn-command-character:nth-child('+cmd1+')').trigger('tap')
+	}else if(type=='next'){
+		$('.btn-result').trigger('tap');
+	}else if(type=='ougi'){
+		$('.btn-lock').trigger('tap');
+	}
+}
