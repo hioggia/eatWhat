@@ -58,6 +58,7 @@ function commandToFight(type,cmd1,cmd2,cmd3,cmd4){
 	if(type=='attack'){
 		$('.btn-attack-start').trigger('tap');
 	}else if(type=='ability'){
+		if($('.prt-command .prt-member .invisible').size()==0){return}
 		var chara = ~~$('.prt-command .prt-member .invisible').attr('pos')+1;
 		$('.prt-command .prt-command-chara[pos='+chara+'] .prt-ability-list div:nth-child('+cmd1+').btn-ability-available').trigger('tap');
 	}else if(type=='character'){
@@ -69,3 +70,30 @@ function commandToFight(type,cmd1,cmd2,cmd3,cmd4){
 		$('.btn-lock').trigger('tap');
 	}
 }
+
+function getPressedCharCode(e){
+	if(e.altKey || e.ctrlKey || e.shiftKey || e.metaKey){
+		return;
+	}
+	var targetTag = e.target.tagName.toLowerCase();
+	if(targetTag == 'textarea' || targetTag == 'input'){
+		return;
+	}
+	var cmdChar = String.fromCharCode(e.charCode);
+	//console.log('pressed:',cmdChar,e);
+	switch(cmdChar){
+		case 'a':
+		case '工':
+		case 'ち':
+			commandToFight('attack',cmdChar);
+			break;
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+			commandToFight('ability',cmd[cmdChar]);
+			break;
+	}
+}
+
+document.addEventListener('keypress',getPressedCharCode,false);
