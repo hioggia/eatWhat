@@ -56,11 +56,13 @@ appbz();
 
 function commandToFight(type,cmd1,cmd2,cmd3,cmd4){
 	if(type=='attack'){
-		$('.btn-attack-start').trigger('tap');
+		$('.btn-attack-start.display-on').trigger('tap');
+		$('.btn-result:visible').trigger('tap');
 	}else if(type=='ability'){
-		if($('.prt-command .prt-member .invisible').size()==0){return}
-		var chara = ~~$('.prt-command .prt-member .invisible').attr('pos')+1;
-		$('.prt-command .prt-command-chara[pos='+chara+'] .prt-ability-list div:nth-child('+cmd1+').btn-ability-available').trigger('tap');
+		//if($('.prt-command .prt-member .invisible').size()==0){return}
+		//var chara = ~~$('.prt-command .prt-member .invisible').attr('pos')+1;
+		//$('.prt-command .prt-command-chara[pos='+chara+'] .prt-ability-list div:nth-child('+cmd1+').btn-ability-available').trigger('tap');
+		$('.prt-command .prt-command-chara:visible .prt-ability-list div:nth-child('+cmd1+').btn-ability-available').trigger('tap');
 	}else if(type=='character'){
 		$('.btn-command-back.display-on').trigger('tap');
 		$('.prt-member .btn-command-character:nth-child('+cmd1+')').trigger('tap')
