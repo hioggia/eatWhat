@@ -265,7 +265,7 @@
 					if(ds){
 						ds = false;
 						cmd1.text('启动');
-						cmd3.text('等打完');
+						cmd3.text('下局停');
 						stop();
 						return;
 					}
@@ -429,7 +429,7 @@
 		sm.running=false;
 	}
 	,cc = $('<div class="wg"><style>.wg{position:absolute;z-index:250001;top:2px;left:2px}.wg button{width:42px;height:22px;margin-right:4px}</style></div>').appendTo(document.body)
-	,cmd3 = $('<button style="width:52px">等打完</button>').appendTo(cc)
+	,cmd3 = $('<button style="width:52px">下局停</button>').appendTo(cc)
 	,cmd1 = $('<button>停止</button>').appendTo(cc)
 	,cmd2 = $('<button>高速</button>').appendTo(cc)
 	,av = {
@@ -519,8 +519,10 @@
 		sout('切换至'+av.模式设定[md.pf].模式名);
 	});
 	cmd3.on(et,function(){
-		cmd3.text('正在等');
-		ds = true;
+		if(sm.running){
+			cmd3.text('知道啦');
+			ds = true;
+		}
 	});
 	return '进入'+av.模式设定[md.pf].模式名;
 })();
