@@ -1,8 +1,8 @@
 (function(){
 	var za
-	,zb
+	,ds = false
 	,et = 'ontouchstart' in window ? 'touchstart' : 'mousedown'
-	,md = 0
+	,md = {ver:1,pf:0,st1:null,st2:null}
 	,nl = '\n'
 	,zc = ['color:#000000','color:#307730','color:#AAAAAA','color:white; background-color:#77A8F3','color:white; background-color:#0055CC','color:white; background-color:#B03939']
 	,sout = function(inf,sty){if(!av.是否在控制台输出信息){sout=function(){};return}console.info('%c'+inf,zc[~~sty])}
@@ -53,10 +53,8 @@
 	,gls2 = function(){var _=localStorage['wg_casino_poker_samples2'];if(_){sp2=JSON.parse(_)}}
 	,sls = function(){localStorage['wg_casino_poker_samples']=JSON.stringify(sp)}
 	,sls2 = function(){localStorage['wg_casino_poker_samples2']=JSON.stringify(sp2)}
-	,gmd = function(){var _=localStorage['wg_casino_poker_confmd'];if(_){md=~~_}else{delete localStorage['wg_casino_poker_config'];smd()}}
-	,smd = function(){localStorage['wg_casino_poker_confmd']=md}
-	,gav = function(){var _=localStorage['wg_casino_poker_config'];if(_){av=JSON.parse(_);}else{av=pav;localStorage['wg_casino_poker_config']=JSON.stringify(av)}}
-	,sav = function(){localStorage['wg_casino_poker_config']=JSON.stringify(av)}
+	,gmd = function(){var _=localStorage['wg_casino_poker_config'];if(_){_=JSON.parse(_);if(_.ver==md.ver){md=_;return;}}smd()}
+	,smd = function(){localStorage['wg_casino_poker_config']=JSON.stringify(md)}
 	,cst = function(){if(new Date().getTime()>sp.过期时间){var _=new Date();if(_.getHours()>=av.收集的样本在每天几点时过期){_=new Date(_.getTime()+24*60*60*1000)}_.setHours(av.收集的样本在每天几点时过期),_.setMinutes(0),_.setSeconds(0),_.setMilliseconds(0);sp={过期时间:_.getTime(),数据:{}}}}
 	,cst2 = function(){if(new Date().getTime()>sp2.过期时间){var _=new Date();if(_.getHours()>=av.收集的样本在每天几点时过期){_=new Date(_.getTime()+24*60*60*1000)}_.setHours(av.收集的样本在每天几点时过期),_.setMinutes(0),_.setSeconds(0),_.setMilliseconds(0);sp2={过期时间:_.getTime(),数据:[]}}}
 	,rsamp = function(){if(check.issinglecard()){return};cst();var p=read.doub(1).点数,r=read.doub(2).点数;if(!(p in sp.数据)){gsamp(p)}sp.数据[p].总++;if(r>p){sp.数据[p].大++}else if(r<p){sp.数据[p].小++}else{sp.数据[p].平++}sls()}
@@ -183,7 +181,7 @@
 			}
 			if(av.薛定谔陪你玩){
 				var _=sampr(card.点数),__=rt[card.点数];
-				if(_ && sp.数据[card.点数].总>=av.模式设定[md].样本收集几次后开始使用){
+				if(_ && sp.数据[card.点数].总>=av.模式设定[md.pf].样本收集几次后开始使用){
 					sout('样本可信度'+pc(_.可信度),2);
 					sout('出大概率'+pc(_.大)+', 基准'+pc(__.大),2);
 					sout('出小概率'+pc(_.小)+', 基准'+pc(__.小),2);
@@ -207,7 +205,7 @@
 					sout('我还没有准备好！薛定谔生气地拒绝作出选择。');
 				}
 			}
-			if(sp.数据[card.点数].总>=av.模式设定[md].样本收集几次后开始使用 && sp.数据[card.点数].大!=sp.数据[card.点数].小){
+			if(sp.数据[card.点数].总>=av.模式设定[md.pf].样本收集几次后开始使用 && sp.数据[card.点数].大!=sp.数据[card.点数].小){
 				if(sp.数据[card.点数].小>sp.数据[card.点数].大){
 					return 'LOW'
 				}
@@ -225,18 +223,18 @@
 				return true;
 			}
 			var card = read.doub(2);
-			if(av.模式设定[md].允许一站到底 && read.medal()>=av.模式设定[md].本钱大于多少后开始一站到底){
+			if(av.模式设定[md.pf].允许一站到底 && read.medal()>=av.模式设定[md.pf].本钱大于多少后开始一站到底){
 				if(card.点数 in sp.数据){
-					if(sp.数据[card.点数].总>=av.模式设定[md].样本收集多少份才允许一站到底){
+					if(sp.数据[card.点数].总>=av.模式设定[md.pf].样本收集多少份才允许一站到底){
 						sout('Fairy Fevering',2);
 						return true
 					}
 				}
 			}
-			var nga = av.模式设定[md].赌双倍遇到这些点数就不要继续;
-			if(sm.doubletimes>=av.模式设定[md].赌双倍连续获胜几回合后进入谨慎状态 || read.bet()>=av.模式设定[md].赌双倍赢筹码达到多少后进入谨慎状态){
+			var nga = av.模式设定[md.pf].赌双倍遇到这些点数就不要继续;
+			if(sm.doubletimes>=av.模式设定[md.pf].赌双倍连续获胜几回合后进入谨慎状态 || read.bet()>=av.模式设定[md.pf].赌双倍赢筹码达到多少后进入谨慎状态){
 				sout('AT-Field FullPower',2);
-				nga = av.模式设定[md].赌双倍谨慎状态下遇到这些点数就不要继续;
+				nga = av.模式设定[md.pf].赌双倍谨慎状态下遇到这些点数就不要继续;
 			}
 			for(var i=0,l=nga.length;i<l;i++){
 				if(card.点数==nga[i]){
@@ -252,7 +250,7 @@
 			if(sm.timeout++>20){
 				location.reload()
 			}
-			var slt=av.模式设定[md].点击动作延迟几秒+Math.random()*av.模式设定[md].随机增加的延迟秒数;
+			var slt=av.模式设定[md.pf].点击动作延迟几秒+Math.random()*av.模式设定[md.pf].随机增加的延迟秒数;
 			sout('Relax! 我只睡'+Math.round(slt*10)/10+'秒',2);
 			$('.btn-usual-ok:visible').trigger('tap');
 			za=setTimeout(caf,slt*1000)
@@ -260,8 +258,15 @@
 		deck:function(){
 			switch(sm.deck){
 				case 0:
-					if(new Date().getTime()>=zb){
+					if(new Date().getTime()>=md.st1){
 						pgo();
+						return;
+					}
+					if(ds){
+						ds = false;
+						cmd1.text('启动');
+						cmd3.text('等打完');
+						stop();
 						return;
 					}
 					if(check.canstart()){
@@ -347,7 +352,7 @@
 						gsay('我早就看到是这个结局了，像我这种天才少女怎么可能会有控制不了的概率呢？哦呵呵呵呵～'+nl+'薛定谔自豪地挺了挺胸。虽然她没有。','切！薛定谔在角落里嘟囔了一句。');
 						var cm = read.bet();
 						sout('累计赌对'+sm.doubletimes+'回,当前筹码:'+cm,5);
-						if(av.模式设定[md].赌双倍连续获胜几回合后停止<=sm.doubletimes || av.模式设定[md].赌双倍筹码达到多少后停止<=cm){
+						if(av.模式设定[md.pf].赌双倍连续获胜几回合后停止<=sm.doubletimes || av.模式设定[md.pf].赌双倍筹码达到多少后停止<=cm){
 							act.tapno();
 							sm.doubletimes=0;
 							sm.doubleup=0;
@@ -382,7 +387,7 @@
 						}else{
 							sout('Holy shit!双倍失败!出现的卡片是:'+read.doub(2),4);
 							st.累计双倍赌错次数++;
-							gsay('哇咔咔咔～活该！让你不听天才少女的忠告！'+nl+'薛定谔用非常亲切和蔼地表情对你说道。'+nl+'你比我爸爸差多了!','这！这不可能！一定是CY使诈！薛定谔愤怒地一拳砸在你的屏幕上。');
+							gsay('哇咔咔咔～活该！让你不听天才少女的忠告！'+nl+'薛定谔用非常亲切和蔼地表情对你说道。','这！这不可能！一定是CY使诈！薛定谔愤怒地一拳砸在你的屏幕上。');
 						}
 						sm.doubleup=0;
 						sm.doubletimes=0;
@@ -398,21 +403,36 @@
 		if(sm.running){return}
 		st.初始游戏筹码 = read.medal();
 		udeck();
-		zb = new Date().getTime()+av.模式设定[md].自动值守不超过几小时*60*60*1000;
+		var n=new Date().getTime();
+		if(md.st1 && md.st2 && n>md.st1 && n<md.st2){
+			pgo();
+			return;
+		}
+		sst();
 		sm.running=true;
 		uo.sleep(uo.deck);
 	}
+	,sst = function(){
+		var n=new Date().getTime();
+		md.st1 = n+av.模式设定[md.pf].自动值守不超过几小时*60*60*1000;
+		md.st2 = md.st1+(av.模式设定[md.pf].自动值守停止后休息几小时再继续值守+av.模式设定[md.pf].随机增加的休息小时数*Math.random())*60*60*1000;
+		smd();
+	}
 	,pgo = function(){
-		var bt = av.模式设定[md].自动值守停止后休息几小时再继续值守+av.模式设定[md].随机增加的休息小时数*Math.random();
-		sout('已停止值守，并在'+Math.round(bt*10)/10+'小时后重新值守',2);
+		var bt = md.st2 - new Date().getTime();
+		sout('已停止值守，并在'+Math.round(bt/1000/60/6)/10+'小时后重新值守',2);
 		sm.running=false;
-		za = setTimeout(boot,bt*60*60*1000);
+		za = setTimeout(boot,bt);
 	}
 	,stop = function(){
 		clearTimeout(za);
 		sm.running=false;
 	}
-	,pav = {
+	,cc = $('<div class="wg"><style>.wg{position:absolute;z-index:250001;top:2px;left:2px}.wg button{width:42px;height:22px;margin-right:4px}</style></div>').appendTo(document.body)
+	,cmd3 = $('<button style="width:52px">等打完</button>').appendTo(cc)
+	,cmd1 = $('<button>停止</button>').appendTo(cc)
+	,cmd2 = $('<button>高速</button>').appendTo(cc)
+	,av = {
 		模式设定:[
 			{
 				模式名:'高速模式',
@@ -447,26 +467,19 @@
 				点击动作延迟几秒:2,
 				随机增加的延迟秒数:2,
 				自动值守不超过几小时:3,
-				自动值守停止后休息几小时再继续值守:1,
-				随机增加的休息小时数:1
+				自动值守停止后休息几小时再继续值守:1.5,
+				随机增加的休息小时数:1.5
 			}
 		],
-		收集的样本在每天几点时过期:4,
+		收集的样本在每天几点时过期:0,
 		样本可信度分母:48,
 		赌双倍的高低分水点数:8,
 		是否在控制台输出信息:true,
 		立即自动值守:true,
 		薛定谔陪你玩:true
-	}
-	,cc = $('<div class="wg"><style>.wg{position:absolute;z-index:250001;top:0}.wg button{width:42px;height:22px;margin-right:4px}</style></div>').appendTo(document.body)
-	,cmd1 = $('<button>停止</button>').appendTo(cc)
-	,cmd2 = $('<button style="display:none">高速</button>').appendTo(cc)
-	,getValueByRel = function(el){switch(el.dataset.option){case 'y1':return av.模式设定[md].赌双倍遇到这些点数就不要继续;case 'y2':return av.模式设定[md].赌双倍连续获胜几回合后进入谨慎状态;case 'y3':return av.模式设定[md].赌双倍赢筹码达到多少后进入谨慎状态;case 'y4':return av.模式设定[md].赌双倍谨慎状态下遇到这些点数就不要继续;case 'y5':return av.模式设定[md].赌双倍连续获胜几回合后停止;case 'y6':return av.模式设定[md].赌双倍筹码达到多少后停止;case 'y7':return av.模式设定[md].允许一站到底;case 'y8':return av.模式设定[md].本钱大于多少后开始一站到底}}
-	,setValueByRel = function(el,val){switch(el.dataset.option){case 'y1':av.模式设定[md].赌双倍遇到这些点数就不要继续=val;break;case 'y2':av.模式设定[md].赌双倍连续获胜几回合后进入谨慎状态=val;break;case 'y3':av.模式设定[md].赌双倍赢筹码达到多少后进入谨慎状态=val;break;case 'y4':av.模式设定[md].赌双倍谨慎状态下遇到这些点数就不要继续=val;break;case 'y5':av.模式设定[md].赌双倍连续获胜几回合后停止=val;break;case 'y6':av.模式设定[md].赌双倍筹码达到多少后停止=val;break;case 'y7':av.模式设定[md].允许一站到底=val;break;case 'y8':av.模式设定[md].本钱大于多少后开始一站到底=val;break}sav()}
-	,av = null;
+	};
 	ca.prototype.toString = function(){if(this.花色!=99){return ['黑桃','红桃','方块','草花'][this.花色-1]+(this.点数>10?['J','Q','K','A'][this.点数-11]:this.点数)}return 'JOKER'};
 	gmd();
-	gav();
 	gsr();
 	gls();
 	gls2();
@@ -481,7 +494,7 @@
 	if(av.立即自动值守){
 		boot();
 	}
-	if(md==1){
+	if(md.pf==1){
 		cmd2.text('安全');
 	}
 	cmd1.on(et,function(){
@@ -496,14 +509,18 @@
 	cmd2.on(et,function(){
 		if(cmd2.text()=='高速'){
 			cmd2.text('安全');
-			md=1;
-			smd();
+			md.pf=1;
+			sst();
 		}else{
 			cmd2.text('高速');
-			md=0;
-			smd();
+			md.pf=0;
+			sst();
 		}
-		sout('切换至'+av.模式设定[md].模式名);
+		sout('切换至'+av.模式设定[md.pf].模式名);
 	});
-	return '进入'+av.模式设定[md].模式名;
+	cmd3.on(et,function(){
+		cmd3.text('正在等');
+		ds = true;
+	});
+	return '进入'+av.模式设定[md.pf].模式名;
 })();

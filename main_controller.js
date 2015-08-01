@@ -47,7 +47,7 @@ var inspector = function(){
 	}
 
 	else if(/casino\/game\/poker/i.test(location.hash)){
-		createScriptLoader('casino_poker.js?v=1');
+		createScriptLoader('casino_poker.js?v=2');
 	}
 
 	else if(/casino\/game\/bingo/i.test(location.hash)){
