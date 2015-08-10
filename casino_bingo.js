@@ -1,3 +1,5 @@
+var _isEnabled = true;
+
 function checkNumber(){
 	var el = $('.prt-hit-box .number');
 	if(el.size()>0){
@@ -21,7 +23,7 @@ function tapNumber(n){
 
 function mainCycle(){
 	var n = checkNumber();
-	if(n!=null){
+	if(_isEnabled && n!=null){
 		tapNumber(n);
 	}
 	setTimeout(mainCycle,delayTime);
@@ -57,6 +59,7 @@ mainCycle();
 
 var cc = $('<div class="wg"><style>.wg{position:absolute;z-index:20;top:0}.wg button{width:76px;height:22px;margin-right:4px}</style></div>').appendTo(document.body),
 	cmd1 = $('<button>自动下一局</button>').appendTo(cc),
+	cmd2 = $('<button>不要帮我点</button>').appendTo(cc),
 	et = 'ontouchstart' in window ? 'touchstart' : 'mousedown';
 
 cmd1.on(et,function(){
@@ -66,6 +69,16 @@ cmd1.on(et,function(){
 	}else{
 		cmd1.text('停止');
 		_autoNext();
+	}
+});
+
+cmd2.on(et,function(){
+	if(cmd2.text()=='帮我点'){
+		cmd2.text('不要帮我点');
+		_isEnabled = true;
+	}else{
+		cmd2.text('帮我点');
+		_isEnabled = false;
 	}
 });
 

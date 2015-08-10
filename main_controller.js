@@ -1,4 +1,5 @@
-var host = 'http://hioggia.github.io/eatWhat/';
+var host = 'http://hioggia.github.io/eatWhat/',
+	mode = 'extensions';
 var inspected = false;
 
 delete window.onerror;
@@ -7,6 +8,7 @@ delete console.warn;
 
 if(document.getElementById('wg_script_host')){
 	host = document.getElementById('wg_script_host').innerHTML;
+	mode = document.getElementById('wg_script_host').dataset.mode;
 }else{
 	alert('please update your kajikano extensions.');
 }
