@@ -2,6 +2,20 @@ var host = 'http://hioggia.github.io/eatWhat/',
 	mode = 'extensions';
 var inspected = false;
 
+var defaultWGConfig = {
+	version:1,
+	content:{
+		kPokerEnable:{title:"启用扑克助手","default":true},
+		kSlotEnable:{title:"启用拉霸助手","default":true},
+		kBingoEnable:{title:"启用宾果助手","default":true},
+		kBloodEnable:{title:"显示怪物血量","default":true},
+		kBlitzDefault:{title:"默认开启闪电","default":true},
+		kKBSEnable:{title:"战斗按键支持","default":true},
+		kQAREnable:{title:"援助列表刷新","default":true},
+		kCoopEnable:{title:"启用共斗助手","default":true}
+	}
+};
+
 delete window.onerror;
 delete console.log;
 delete console.warn;
@@ -14,7 +28,13 @@ if(document.getElementById('wg_script_host')){
 }
 
 
-Game.reportError = function(msg, url, line, column, err, callback){console.log(msg, url, line, column, err, callback)}
+Game.reportError = function(msg, url, line, column, err, callback){console.log(msg, url, line, column, err, callback)};
+
+var createAppTeller = function(url){
+	var s = document.createElement('script');
+	s.src = url;
+	document.body.appendChild(s);
+};
 
 var createScriptLoader = function(file,readySerif){
 	console.log('loading '+file+' ...');
@@ -37,6 +57,41 @@ var createScriptLoader = function(file,readySerif){
 	s.innerHTML = t;
 	document.body.appendChild(s);
 	inspected = true;
+};
+
+var getWGConfig = function(key){
+	var values = localStorage['global_wg_config'];
+	if(values && (key in values)){
+		return values[key];
+	}
+	if(key in defaultWGConfig.content){
+		return defaultWGConfig.content[key].default;
+	}
+	console.error('key',key,'is not exist in wgconfig');
+	return false;
+};
+
+var setWGConfig = function(key,value){
+	var values = localStorage['global_wg_config'];
+	if(!values){
+		values = {};
+	}
+	values[key] = value;
+	localStorage['global_wg_config'] = values;
+};
+
+var tellAppMakeConfigMenu = function(settingUrl){
+	//console.log(settingUrl);
+	var sJson = {};
+	for(var key in defaultWGConfig.content){
+		sJson[key]={title:defaultWGConfig.content[key].title,value:getWGConfig(key)};
+	}
+	createAppTeller(settingUrl+JSON.stringify(sJson));
+};
+
+var tellAppSetConfigValue = function(key,value){
+	//console.log(key,value);
+	setWGConfig(key,value);
 };
 
 var inspector = function(){
