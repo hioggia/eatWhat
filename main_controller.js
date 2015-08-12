@@ -129,7 +129,7 @@ var inspector = function(){
 
 	else if(/raid\/\d+/i.test(location.hash) || /raid_multi\/\d+/i.test(location.hash)){
 		if(getWGConfig('kBloodEnable')||getWGConfig('kBlitzDefault')||getWGConfig('kKBSEnable')){
-			createScriptLoader('raid_helper.js?v=3','请稍后。');
+			createScriptLoader('raid_helper.js?v=4','请稍后。');
 		}
 	}
 
