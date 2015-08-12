@@ -45,13 +45,17 @@ function appbz(){
         	rate = 4-rate;
 			console.log('speed rate change to',rate);
         });
+		if(!getWGConfig('kBlitzDefault')){
+			cmd.addClass('on');
+			rate = 1;
+		}
         console.info('闪电战术已启用。');
 	}else{
 		setTimeout(appbz,1000);
 	}
 }
 
-hpvis();
+getWGConfig('kBloodEnable')&&hpvis();
 appbz();
 
 function commandToFight(type,cmd1,cmd2,cmd3,cmd4){
@@ -123,4 +127,6 @@ function getPressedCharCode(e){
 	}
 }
 
-document.addEventListener('keypress',getPressedCharCode,false);
+if(getWGConfig('kKBSEnable')){
+	document.addEventListener('keypress',getPressedCharCode,false);
+}

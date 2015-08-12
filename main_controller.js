@@ -60,9 +60,12 @@ var createScriptLoader = function(file,readySerif){
 };
 
 var getWGConfig = function(key){
-	var values = localStorage['global_wg_config'];
-	if(values && (key in values)){
-		return values[key];
+	var values = localStorage['wg_global_config'];
+	if(values){
+		values = JSON.parse(values);
+		if(key in values){
+			return values[key];
+		}
 	}
 	if(key in defaultWGConfig.content){
 		return defaultWGConfig.content[key].default;
@@ -72,18 +75,21 @@ var getWGConfig = function(key){
 };
 
 var setWGConfig = function(key,value){
-	var values = localStorage['global_wg_config'];
+	var values = localStorage['wg_global_config'];
 	if(!values){
 		values = {};
+	}else{
+		values = JSON.parse(values);
 	}
 	values[key] = value;
-	localStorage['global_wg_config'] = values;
+	localStorage['wg_global_config'] = JSON.stringify(values);
 };
 
 var tellAppMakeConfigMenu = function(settingUrl){
 	//console.log(settingUrl);
 	var sJson = {};
 	for(var key in defaultWGConfig.content){
+		console.log(key);
 		sJson[key]={title:defaultWGConfig.content[key].title,value:getWGConfig(key)};
 	}
 	createAppTeller(settingUrl+JSON.stringify(sJson));
@@ -100,15 +106,21 @@ var inspector = function(){
 	}
 	
 	if(/casino\/game\/slot/i.test(location.hash)){
-		createScriptLoader('casino_slot.js?v=2');
+		if(getWGConfig('kSlotEnable')){
+			createScriptLoader('casino_slot.js?v=2');
+		}
 	}
 
 	else if(/casino\/game\/poker/i.test(location.hash)){
-		createScriptLoader('casino_poker.js?v=2');
+		if(getWGConfig('kPokerEnable')){
+			createScriptLoader('casino_poker.js?v=2');
+		}
 	}
 
 	else if(/casino\/game\/bingo/i.test(location.hash)){
-		createScriptLoader('casino_bingo.js?v=1','请稍后。');
+		if(getWGConfig('kBingoEnable')){
+			createScriptLoader('casino_bingo.js?v=1','请稍后。');
+		}
 	}
 
 	else if(/event\/teamraid\d+\/ranking_guild\/detail/i.test(location.hash) || /event\/teamraid\d+\/ranking\/detail/i.test(location.hash)){
@@ -116,15 +128,21 @@ var inspector = function(){
 	}
 
 	else if(/raid\/\d+/i.test(location.hash) || /raid_multi\/\d+/i.test(location.hash)){
-		createScriptLoader('raid_helper.js?v=3','请稍后。');
+		if(getWGConfig('kBloodEnable')||getWGConfig('kBlitzDefault')||getWGConfig('kKBSEnable')){
+			createScriptLoader('raid_helper.js?v=3','请稍后。');
+		}
 	}
 
 	else if(/coopraid\/offer/i.test(location.hash)){
-		createScriptLoader('coopraid_offer.js?v=2','请稍后。');
+		if(getWGConfig('kCoopEnable')){
+			createScriptLoader('coopraid_offer.js?v=2','请稍后。');
+		}
 	}
 
 	else if(/quest\/assist/i.test(location.hash)){
-		createScriptLoader('quest_assist.js?v=1','请稍后。');
+		if(getWGConfig('kQAREnable')){
+			createScriptLoader('quest_assist.js?v=1','请稍后。');
+		}
 	}
 
 	setTimeout(inspector,1000);
