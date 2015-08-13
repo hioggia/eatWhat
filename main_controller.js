@@ -113,7 +113,7 @@ var inspector = function(){
 
 	else if(/casino\/game\/poker/i.test(location.hash)){
 		if(getWGConfig('kPokerEnable')){
-			createScriptLoader('casino_poker.js?v=2');
+			createScriptLoader('casino_poker.js?v=3');
 		}
 	}
 
