@@ -1,4 +1,4 @@
-var host,
+var host = 'http://hioggia.github.io/eatWhat/',
 	mode = 'extensions';
 var inspected = false;
 
@@ -25,7 +25,7 @@ if(document.getElementById('wg_script_host')){
 	mode = document.getElementById('wg_script_host').dataset.mode;
 }else{
 	alert('please update your kajikano extensions.');
-	return;
+	//return;
 }
 
 
@@ -124,156 +124,7 @@ var inspector = function(){
 		}
 	}
 
-	else if(/event\/teamraid\d+\/ranking_guild\/detail/i.test(location.hash) || /event\/teamraid\d+\/ranking\/detail/i.test(location.hash)){
-		createScriptLoader('teamraid_ranker.js?v=1','请稍后。');
-	}
-
-	else if(/raid\/\d+/i.test(location.hash) || /raid_multi\/\d+/i.test(location.hash)){
-		if(getWGConfig('kBloodEnable')||getWGConfig('kBlitzDefault')||getWGConfig('kKBSEnable')){
-			createScriptLoader('raid_helper.js?v=4','请稍后。');
-		}
-	}
-
-	else if(/coopraid\/offer/i.test(location.hash)){
-		if(getWGConfig('kCoopEnable')){
-			createScriptLoader('coopraid_offer.js?v=2','请稍后。');
-		}
-	}
-
-	else if(/quest\/assist/i.test(location.hash)){
-		if(getWGConfig('kQAREnable')){
-			createScriptLoader('quest_assist.js?v=1','请稍后。');
-		}
-	}
-
-	/*else if(/quest\/supporter\/705642\/0/i.test(location.hash)){
-		setTimeout(act.func[1],1000);
-	}
-
-	else if(/quest\/stage/i.test(location.hash)){
-		setTimeout(act.func[5],1000);
-	}
-
-	else if(/quest\/scene\/scene_evt150831_cp4_q2_s10/i.test(location.hash)){
-		setTimeout(act.func[2],1000);
-	}
-
-	else if(/quest\/scene\/scene_evt150831_cp4_q2_s20/i.test(location.hash)){
-		setTimeout(act.func[2],1000);
-	}*/
-
 	setTimeout(inspector,1000);
 };
-
-var act={func:{}};
-
-function waitForTrue(condition,callback){
-	if(condition()){
-		callback()
-	}else{
-		setTimeout(function(){
-			waitForTrue(condition,callback)
-		},500);
-	}
-}
-
-act.func[0] = function(){
-	location.hash='#quest/supporter/705642/0';
-};
-
-act.func[1] = function(){
-	$('.prt-supporter-attribute .btn-supporter').eq(0).trigger('tap');
-
-	waitForTrue(function(){
-		return $('.pop-deck').is(':visible')
-	},function(){
-		$('.btn-usual-ok').trigger('tap');
-	});
-};
-
-act.func[2] = function(){
-	$('.btn-skip').trigger('tap');
-
-	waitForTrue(function(){
-		return $('.pop-synopsis').is(':visible')
-	},function(){
-		$('.btn-usual-ok').trigger('tap');
-	})
-};
-
-act.func[3] = function(){
-	if($('.enemy-2 .name').html()=='Lv7 ホワイトラビット'){
-		$('.enemy-2').trigger('tap');
-
-		waitForTrue(function(){
-			return $('.enemy-2').is('.lock-on')
-		},function(){
-			$('.btn-ability-available').eq(8).trigger('tap');
-
-			waitForTrue(function(){
-				return $('.btn-attack-start').is('.display-on')
-			},function(){
-				$('.btn-ability-available').eq(8).trigger('tap');
-
-				waitForTrue(function(){
-					return $('.btn-attack-start').is('.display-on')
-				},function(){
-					$('.btn-ability-available').eq(3).trigger('tap');
-
-					waitForTrue(function(){
-						return $('.btn-attack-start').is('.display-on')
-					},function(){
-						$('.btn-ability-available').eq(1).trigger('tap');
-
-						/*waitForTrue(function(){
-							return $('.btn-attack-start').is('.display-on')
-						},function(){
-							$('.btn-ability-available').eq(3).trigger('tap');
-						})*/
-					})
-				})
-			})
-		});
-	}else{
-		act.func[4]();
-	}
-};
-
-act.func[4] = function(){
-	$('.btn-raid-menu').trigger('tap');
-
-	waitForTrue(function(){
-		return $('.pop-raid-menu').is(':visible')
-	},function(){
-		$('.btn-withdrow').trigger('tap');
-
-		waitForTrue(function(){
-			return $('.pop-result-withdraw').is(':visible')
-		},function(){
-			$('.btn-usual-ok').trigger('tap');
-
-			waitForTrue(function(){
-				return $('.btn-result').is(':visible')
-			},function(){
-				act.func[0]();
-
-				setTimeout(act.func[1],2000);
-			});
-		});
-	});
-};
-
-act.func[5] = function(){
-	$('.btn-command-forward:not(.disable)').trigger('tap');
-	setTimeout(act.func[5],300);
-};
-
-Object.defineProperties(act,{
-	'a0':{get:act.func[0]},
-	'a1':{get:act.func[1]},
-	'a2':{get:act.func[2]},
-	'a3':{get:act.func[3]},
-	'a4':{get:act.func[4]}
-});
 
 inspector();
