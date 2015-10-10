@@ -24,7 +24,7 @@ if(document.getElementById('wg_script_host')){
 	host = document.getElementById('wg_script_host').innerHTML;
 	mode = document.getElementById('wg_script_host').dataset.mode;
 }else{
-	alert('please update your kajikano extensions.');
+	//alert('please update your kajikano extensions.');
 	//return;
 }
 
