@@ -106,7 +106,7 @@ var inspector = function(){
 		return;
 	}
 	
-	if(/casino\/game\/slot/i.test(location.hash)){
+	else if(/casino\/game\/slot/i.test(location.hash)){
 		if(getWGConfig('kSlotEnable')){
 			createScriptLoader('casino_slot.js?v=2');
 		}
@@ -122,6 +122,10 @@ var inspector = function(){
 		if(getWGConfig('kBingoEnable')){
 			createScriptLoader('casino_bingo.js?v=1','请稍后。');
 		}
+	}
+
+	else if(/quest\/stage/i.test(location.hash)){
+		createScriptLoader('quest_stage.js?v=1','请稍后。');
 	}
 
 	setTimeout(inspector,1000);
