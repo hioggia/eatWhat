@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<style>
+		#w input{width:40px;margin-right:12px;}
+		#fs thead td{background-color:green;color:white;text-align:center;}
+		#fs thead td:nth-child(1){width:140px;}
+		#fs thead td:nth-last-child(1){width:340px;}
+		#fs tbody tr:nth-child(even) td{background-color:#eee;}
+		button{width:80px;height:28px;color:#002700;font-weight:700;font-size:1em;border-radius:6px;border:2px solid #245A37;background-image:linear-gradient(#A0E48A,#DBE6DD);}
+		</style>
+		<script>
+		function c(nw,bw,mw,uw,ps1,ms1,ns1,cs1,us1,ps2,ms2,ns2,cs2,us2){
+			//前四个参数所填为武器本数，后五个参数所填为UP倍数
+			//nw普通攻刃，bw巴哈攻刃，mw马古纳攻刃，uw未知系列
+			//ps属性召唤，ms马古纳召唤，ns课金方阵召唤，cs角色加护召唤，us神崎兰子
+			if(bw>1){
+				return '30%攻刃的巴武只能带1把啦';
+			}
+			if(nw+bw+mw+uw>10){
+				return '武器最多只能带10把啦';
+			}
+			var result = (1+(0.15*nw*(1+ns1+ns2))+(0.3*bw)+(1+cs1+cs2))*(1+(0.15*mw*(1+ms1+ms2)))*(1+(0.15*uw*(1+us1+us2)))*(1+ps1+ps2);
+			return '倍数为：'+result;
+		}
+		var sList = {
+			'属性50':[0.5,0,0,0,0],
+			'属性80':[0.8,0,0,0,0],
+			'属性100':[1,0,0,0,0],
+			'属性120':[1.2,0,0,0,0],
+			'马古纳50':[0,0.5,0,0,0],
+			'马古纳100':[0,1,0,0,0],
+			'课金80':[0,0,0.8,0,0],
+			'课金120':[0,0,1.2,0,0],
+			'角色攻刃25':[0,0,0,0.25,0],
+			'角色攻刃40':[0,0,0,0.4,0],
+			'角色攻刃60':[0,0,0,0.6,0],
+			'神崎兰子30':[0,0,0,0,0.3],
+			'神崎兰子50':[0,0,0,0,0.5]
+		};
+		function calcResult(){
+			var mainSummon = sList[document.querySelector('#ms select').value];
+			var weapons = [];
+			Array.prototype.forEach.call(document.querySelectorAll('#w input'),function(v,i){
+				weapons[i] = ~~v.value;
+			});
+			Array.prototype.forEach.call(document.querySelectorAll('#fs tbody tr'),function(v,i){
+				if(v.children[0].querySelector('input').checked){
+					var summonName = v.children[0].querySelector('label').textContent;
+					var summon = sList[summonName];
+					var arg = weapons.concat(mainSummon,summon);
+					v.children[1].innerHTML = c.apply(null,arg);
+				}
+			});
+		}
+		function clearResult(){
+			Array.prototype.forEach.call(document.querySelectorAll('#fs tbody tr'),function(v,i){
+				v.children[1].innerHTML = '';
+			});
+		}
+		window.addEventListener('load',function(){
+			var elMS = document.querySelector('#ms select'), elFS = document.querySelector('#fs tbody');
+			for(var key in sList){
+				var option = new Option();
+				option.text = key;
+				elMS.add(option);
+				var row = document.createElement('tr');
+				row.innerHTML = '<td><label><input type="checkbox" />'+key+'</label></td><td></td>';
+				elFS.appendChild(row);
+			}
+			document.querySelectorAll('button')[0].addEventListener('click',calcResult,false);
+			document.querySelectorAll('button')[1].addEventListener('click',clearResult,false);
+		},false);
+		</script>
+	</head>
+	<body>
+		<h1>想怎么配？</h1>
+		<p id="w">普通攻刃x<input type="number" value="1" />巴哈攻刃x<input type="number" value="1" />马古纳攻刃x<input type="number" value="1" />未知系列x<input type="number" value="1" /></p>
+		<h2>你的主召唤是？</h2>
+		<p id="ms"><select></select></p>
+		<h2>你会组的召唤有？</h2>
+		<table id="fs"><thead><tr>
+			<td></td><td>结果</td>
+		</tr></thead><tbody></tbody></table>
+		<button>计算</button> <button>清空</button>
+	</body>
+</html>
