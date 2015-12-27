@@ -3,28 +3,28 @@
 	<head>
 		<meta charset="utf-8" />
 		<style>
+		.container{float:left;width:600px;}
 		#mw thead td{background-color:green;color:white;text-align:center;}
 		#mw thead td:nth-child(1){width:160px;}
 		#mw thead td:nth-child(2){width:80px;}
 		#mw thead td:nth-child(3){width:80px;}
-		#mw thead td:nth-last-child(1){width:150px;}
+		#mw thead td:nth-last-child(1){width:100px;}
 		#mw tbody tr:nth-child(even) td{background-color:#eee;}
 		#mw tbody input{width:40px;}
-		#fs thead td{background-color:green;color:white;text-align:center;}
+		#fs thead td{background-color:green;color:white;text-align:center;width:120px;}
 		#fs thead td:nth-child(1){width:140px;}
-		#fs thead td:nth-last-child(1){width:340px;}
 		#fs tbody tr:nth-child(even) td{background-color:#eee;}
 		button{width:80px;height:28px;color:#002700;font-weight:700;font-size:1em;border-radius:6px;border:2px solid #245A37;background-image:linear-gradient(#A0E48A,#DBE6DD);margin-top:10px;}
 		</style>
 		<script>
-		function c(nw,bw,mw,uw,ps1,ms1,ns1,cs1,us1,ps2,ms2,ns2,cs2,us2){
+		function c(nw,bw,mw,uw,ps1,ms1,ns1,cs1,us1,ps2,ms2,ns2,cs2,us2,wp){
 			//前四个参数所填为武器本数，后五个参数所填为UP倍数
 			//nw普通攻刃，bw巴哈攻刃，mw马古纳攻刃，uw未知系列
 			//ps属性召唤，ms马古纳召唤，ns课金方阵召唤，cs角色加护召唤，us神崎兰子
 			//console.log(nw,bw,mw,uw,ps1,ms1,ns1,cs1,us1,ps2,ms2,ns2,cs2,us2);
 			//				普通攻刃区		巴武区	角色攻刃 			马古纳区					ＵＫ区				属性加护
-			var result = ( 1+nw*(1+ns1+ns2) + bw + cs1+cs2 ) * ( 1+mw*(1+ms1+ms2) ) * ( 1+uw*(1+us1+us2) ) * (1+ps1+ps2);
-			return '倍数为：'+result;
+			var result = ( 1+nw*(1+ns1+ns2) + bw + cs1+cs2 ) * ( 1+mw*(1+ms1+ms2) ) * ( 1+uw*(1+us1+us2) ) * (1+ps1+ps2+wp);
+			return Math.round(result*1000)/1000;
 		}
 		var wList = {
 			'普通攻刃(小)':[0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.10,0.104,0.108,0.112,0.116,0.12],
@@ -61,6 +61,7 @@
 			'神崎兰子50':[0,0,0,0,0.5]
 		};
 		function calcResult(){
+			clearResult();
 			var mainSummon = sList[document.querySelector('#ms select').value];
 			var weapons = [0,0,0,0];
 			Array.prototype.forEach.call(document.querySelectorAll('#mw tbody tr'),function(v,i){
@@ -74,13 +75,15 @@
 					var summonName = v.children[0].querySelector('label').textContent;
 					var summon = sList[summonName];
 					var arg = weapons.concat(mainSummon,summon);
-					v.children[1].innerHTML = c.apply(null,arg);
+					v.children[1].innerHTML = c.apply(null,arg.concat(0.5));
+					v.children[2].innerHTML = c.apply(null,arg.concat(0));
 				}
 			});
 		}
 		function clearResult(){
 			Array.prototype.forEach.call(document.querySelectorAll('#fs tbody tr'),function(v,i){
 				v.children[1].innerHTML = '';
+				v.children[2].innerHTML = '';
 			});
 		}
 		function copyWeapon(){
@@ -132,7 +135,7 @@
 				option.text = key;
 				elMS.add(option);
 				var row = document.createElement('tr');
-				row.innerHTML = '<td><label><input type="checkbox" />'+key+'</label></td><td></td>';
+				row.innerHTML = '<td><label><input type="checkbox" />'+key+'</label></td><td></td><td></td>';
 				elFS.appendChild(row);
 			}
 			document.querySelectorAll('button')[0].addEventListener('click',copyWeapon,false);
@@ -142,13 +145,17 @@
 		</script>
 	</head>
 	<body>
-		<h1>你会带什么武器？</h1>
-		<table id="mw"><thead><tr><td>技能</td><td>等级</td><td>数量</td><td></td></tr></thead><tbody></tbody></table>
-		<button>增加</button>
-		<h2>你的主召唤是？</h2>
-		<p id="ms"><select></select></p>
-		<h2>你会组的召唤有？</h2>
-		<table id="fs"><thead><tr><td></td><td>结果</td></tr></thead><tbody></tbody></table>
-		<button>计算</button> <button>清空</button>
+		<div class="container">
+			<h1>你会带什么武器？</h1>
+			<table id="mw"><thead><tr><td>技能</td><td>等级</td><td>数量</td><td></td></tr></thead><tbody></tbody></table>
+			<button>增加</button>
+			<h2>你的主召唤是？</h2>
+			<p id="ms"><select></select></p>
+		</div>
+		<div class="container">
+			<h2>你会组的召唤有？</h2>
+			<table id="fs"><thead><tr><td></td><td>对克制属性</td><td>非克制属性</td></tr></thead><tbody></tbody></table>
+			<button>计算</button> <button>清空</button>
+		</div>
 	</body>
 </html>
