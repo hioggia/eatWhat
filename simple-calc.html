@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<style>
-		.container{float:left;width:600px;}
+		.container{float:left;min-width:500px;}
 		#mw thead td{background-color:green;color:white;text-align:center;}
 		#mw thead td:nth-child(1){width:160px;}
 		#mw thead td:nth-child(2){width:80px;}
@@ -11,8 +11,8 @@
 		#mw thead td:nth-last-child(1){width:100px;}
 		#mw tbody tr:nth-child(even) td{background-color:#eee;}
 		#mw tbody input{width:40px;}
-		#fs thead td{background-color:green;color:white;text-align:center;width:120px;}
-		#fs thead td:nth-child(1){width:140px;}
+		#fs thead td{background-color:green;color:white;text-align:center;width:70px;}
+		#fs thead td:nth-child(1){width:130px;}
 		#fs tbody tr:nth-child(even) td{background-color:#eee;}
 		button{width:80px;height:28px;color:#002700;font-weight:700;font-size:1em;border-radius:6px;border:2px solid #245A37;background-image:linear-gradient(#A0E48A,#DBE6DD);margin-top:10px;}
 		</style>
@@ -64,6 +64,7 @@
 			clearResult();
 			var mainSummon = sList[document.querySelector('#ms select').value];
 			var weapons = [0,0,0,0];
+			var wp = document.querySelector('#iw input').checked ? 0.5 : 0;
 			Array.prototype.forEach.call(document.querySelectorAll('#mw tbody tr'),function(v,i){
 				var m = v.children[0].querySelector('select').value,
 					s = ~~v.children[1].querySelector('select').value,
@@ -74,9 +75,14 @@
 				if(v.children[0].querySelector('input').checked){
 					var summonName = v.children[0].querySelector('label').textContent;
 					var summon = sList[summonName];
-					var arg = weapons.concat(mainSummon,summon);
-					v.children[1].innerHTML = c.apply(null,arg.concat(0.5));
-					v.children[2].innerHTML = c.apply(null,arg.concat(0));
+					var arg = weapons.concat(mainSummon,summon,wp);
+					v.children[1].innerHTML = c.apply(null,arg.concat(100));
+					v.children[2].innerHTML = c.apply(null,arg.concat(90));
+					v.children[3].innerHTML = c.apply(null,arg.concat(75));
+					v.children[4].innerHTML = c.apply(null,arg.concat(50));
+					v.children[5].innerHTML = c.apply(null,arg.concat(25));
+					v.children[6].innerHTML = c.apply(null,arg.concat(10));
+					v.children[7].innerHTML = c.apply(null,arg.concat(1));
 				}
 			});
 		}
@@ -84,6 +90,11 @@
 			Array.prototype.forEach.call(document.querySelectorAll('#fs tbody tr'),function(v,i){
 				v.children[1].innerHTML = '';
 				v.children[2].innerHTML = '';
+				v.children[3].innerHTML = '';
+				v.children[4].innerHTML = '';
+				v.children[5].innerHTML = '';
+				v.children[6].innerHTML = '';
+				v.children[7].innerHTML = '';
 			});
 		}
 		function copyWeapon(){
@@ -93,8 +104,21 @@
 			var source = document.querySelector('#mw tbody tr').cloneNode(true);
 			source.children[3].innerHTML = '<a href="javascript:void(0)">移除</a>';
 			document.querySelector('#mw tbody').appendChild(source);
+			recountTotalWeapon();
 		}
-		function weaponSLvManage(ev){
+		function recountTotalWeapon(){
+			var total = 0, elTC = document.querySelector('#mwtc');
+			Array.prototype.forEach.call(document.querySelectorAll('#mw tbody tr td:nth-child(3) input'),function(v,i){
+				total += ~~v.value;
+			});
+			elTC.innerHTML = total;
+			if(total>10){
+				elTC.style.color = 'red';
+			}else{
+				elTC.style.color = '';
+			}
+		}
+		function weaponChangeManage(ev){
 			if(ev.target.tagName.toUpperCase()=='SELECT'){
 				if(ev.target.dataset.type=='m'){
 					var l = wList[ev.target.value].length;
@@ -106,12 +130,15 @@
 						s.add(option);
 					}
 				}
+			}else if(ev.target.tagName.toUpperCase() == 'INPUT'){
+				recountTotalWeapon();
 			}
 		}
-		function weaponManage(ev){
+		function weaponClickManage(ev){
 			if(ev.target.tagName.toUpperCase()=='A'){
 				var n = ev.target.parentNode.parentNode;
 				n.parentNode.removeChild(n);
+				recountTotalWeapon();
 			}
 		}
 		window.addEventListener('load',function(){
@@ -125,8 +152,8 @@
 				option.text = key;
 				s1.add(option);
 			}
-			elMW.addEventListener('change',weaponSLvManage,false);
-			elMW.addEventListener('click',weaponManage,false);
+			elMW.addEventListener('change',weaponChangeManage,false);
+			elMW.addEventListener('click',weaponClickManage,false);
 			var ev = document.createEvent('UIEvents');
 			ev.initEvent('change',true,true);
 			s1.dispatchEvent(ev);
@@ -135,7 +162,7 @@
 				option.text = key;
 				elMS.add(option);
 				var row = document.createElement('tr');
-				row.innerHTML = '<td><label><input type="checkbox" />'+key+'</label></td><td></td><td></td>';
+				row.innerHTML = '<td><label><input type="checkbox" />'+key+'</label></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>';
 				elFS.appendChild(row);
 			}
 			document.querySelectorAll('button')[0].addEventListener('click',copyWeapon,false);
@@ -147,14 +174,16 @@
 	<body>
 		<div class="container">
 			<h1>你会带什么武器？</h1>
-			<table id="mw"><thead><tr><td>技能</td><td>等级</td><td>数量</td><td></td></tr></thead><tbody></tbody></table>
+			<table id="mw"><thead><tr><td>技能</td><td>等级</td><td>数量</td><td></td></tr></thead><tbody></tbody><tfoot><tr><td>总计：</td><td></td><td id="mwtc">1</td><td></td></tr></tfoot></table>
 			<button>增加</button>
 			<h2>你的主召唤是？</h2>
 			<p id="ms"><select></select></p>
+			<h2>是否对克制属性？</h2>
+			<p id="iw"><label><input type="checkbox" value="1" />对克制属性请打勾</label></p>
 		</div>
 		<div class="container">
-			<h2>你会组的召唤有？</h2>
-			<table id="fs"><thead><tr><td></td><td>对克制属性</td><td>非克制属性</td></tr></thead><tbody></tbody></table>
+			<h2>能组的召唤有？</h2>
+			<table id="fs"><thead><tr><td>HP%</td><td>100</td><td>90</td><td>75</td><td>50</td><td>25</td><td>10</td><td>1</td></tr></thead><tbody></tbody></table>
 			<button>计算</button> <button>清空</button>
 		</div>
 	</body>
