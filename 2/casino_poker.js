@@ -499,9 +499,6 @@
 		情况:{get:sstat},
 		样本:{get:ssamp}
 	});
-	if(av.立即自动值守){
-		boot();
-	}
 	if(md.pf==1){
 		cmd2.text('安全');
 	}
@@ -531,6 +528,11 @@
 			ds = true;
 		}
 	});
-	setTimeout(function(){createjs.Ticker.setFPS(av.模式设定[md.pf].FPS)},1000*5);
+	setTimeout(function(){
+		createjs.Ticker.setFPS(av.模式设定[md.pf].FPS);
+		if(av.立即自动值守){
+			boot();
+		}
+	},1000*5);
 	return '进入'+av.模式设定[md.pf].模式名;
 })();
