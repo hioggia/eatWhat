@@ -1,4 +1,6 @@
 (function(){
+
+	return;
 	
 function getShowedApRemainingTime(){
 	var a = $('.txt-stamina-remaining').text().replace('分','').split('時間').map(function(v,i){return ~~v});
