@@ -30,7 +30,7 @@
 		.prt-targeting-area[type="l3"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:0px;width:106px;height:40px}\
 		.prt-targeting-area[type="l3"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:214px;width:106px;height:40px}\
 		.prt-targeting-area[type="l3"] .wg-hp-area div[target="3"]{position:absolute;top:47px;left:109px;width:106px;height:40px}\
-		.hp-show span{position:absolute;color:#f2eee2;text-shadow:0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d;font-size:0.7em;bottom:-16px;right:5px;}</style>').appendTo(document.body);
+		.hp-show span{position:absolute;text-align:right;color:#f2eee2;text-shadow:0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d;font-size:0.7em;bottom:-16px;right:5px;}</style>').appendTo(document.body);
 	(function hpvis(){
 		if(require && require.specified('lib/raid/display')){
 			var display = require('lib/raid/display');
