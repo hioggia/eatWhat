@@ -19,17 +19,33 @@
 	$('<div class="wg-hp-area"><div class="hp-show" target="1"><span></span></div><div class="hp-show" target="2"><span></span></div><div class="hp-show" target="3"><span></span></div></div>').appendTo('.prt-targeting-area');
 	$('<style>[class^="lis-character"] .txt-hp-value.hide-hp::after{display:none!important;background:none!important}\
 		.prt-targeting-area .wg-hp-area{position:absolute;top:0px;left:0px;width:320px;height:1px;pointer-events:none;}\
-		.prt-targeting-area[type="s1"] .wg-hp-area div[target="1"],.prt-targeting-area[type="m1"] .wg-hp-area div[target="1"],.prt-targeting-area[type="l1"] .wg-hp-area div[target="1"]{position:absolute;top:42px;left:30px;width:260px;height:40px}\
-		.prt-targeting-area[type="s2"] .wg-hp-area div[target="1"],.prt-targeting-area[type="m2"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:33px;width:110px;height:40px}\
-		.prt-targeting-area[type="s2"] .wg-hp-area div[target="2"],.prt-targeting-area[type="m2"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:172px;width:110px;height:40px}\
-		.prt-targeting-area[type="s3"] .wg-hp-area div[target="1"],.prt-targeting-area[type="m3"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:0px;width:106px;height:40px}\
-		.prt-targeting-area[type="s3"] .wg-hp-area div[target="2"],.prt-targeting-area[type="m3"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:214px;width:106px;height:40px}\
-		.prt-targeting-area[type="s3"] .wg-hp-area div[target="3"],.prt-targeting-area[type="m3"] .wg-hp-area div[target="3"]{position:absolute;top:47px;left:109px;width:106px;height:40px}\
+		.prt-targeting-area[type="s1"] .wg-hp-area div[target="1"],\
+		.prt-targeting-area[type="m1"] .wg-hp-area div[target="1"],\
+		.prt-targeting-area[type="l1"] .wg-hp-area div[target="1"]{position:absolute;top:42px;left:30px;width:260px;height:40px}\
+		.prt-targeting-area[type="s2"] .wg-hp-area div[target="1"],\
+		.prt-targeting-area[type="m2"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:33px;width:110px;height:40px}\
+		.prt-targeting-area[type="s2"] .wg-hp-area div[target="2"],\
+		.prt-targeting-area[type="m2"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:172px;width:110px;height:40px}\
+		.prt-targeting-area[type="s3"] .wg-hp-area div[target="1"],\
+		.prt-targeting-area[type="m3"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:0px;width:106px;height:40px}\
+		.prt-targeting-area[type="s3"] .wg-hp-area div[target="2"],\
+		.prt-targeting-area[type="m3"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:214px;width:106px;height:40px}\
+		.prt-targeting-area[type="s3"] .wg-hp-area div[target="3"],\
+		.prt-targeting-area[type="m3"] .wg-hp-area div[target="3"]{position:absolute;top:47px;left:109px;width:106px;height:40px}\
 		.prt-targeting-area[type="l2"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:33px;width:110px;height:40px}\
 		.prt-targeting-area[type="l2"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:172px;width:110px;height:40px}\
 		.prt-targeting-area[type="l3"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:0px;width:106px;height:40px}\
 		.prt-targeting-area[type="l3"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:214px;width:106px;height:40px}\
 		.prt-targeting-area[type="l3"] .wg-hp-area div[target="3"]{position:absolute;top:47px;left:109px;width:106px;height:40px}\
+		.prt-targeting-area[type="s2"] .wg-hp-area div[target="3"],\
+		.prt-targeting-area[type="m2"] .wg-hp-area div[target="3"],\
+		.prt-targeting-area[type="l2"] .wg-hp-area div[target="3"],\
+		.prt-targeting-area[type="s1"] .wg-hp-area div[target="3"],\
+		.prt-targeting-area[type="m1"] .wg-hp-area div[target="3"],\
+		.prt-targeting-area[type="l1"] .wg-hp-area div[target="3"],\
+		.prt-targeting-area[type="s1"] .wg-hp-area div[target="2"],\
+		.prt-targeting-area[type="m1"] .wg-hp-area div[target="2"],\
+		.prt-targeting-area[type="l1"] .wg-hp-area div[target="2"]{display:none}\
 		.hp-show span{position:absolute;text-align:right;color:#f2eee2;text-shadow:0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 1px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d,0 0 2px #0c320d;font-size:0.7em;bottom:-16px;right:5px;}</style>').appendTo(document.body);
 	(function hpvis(){
 		if(require && require.specified('lib/raid/display')){
