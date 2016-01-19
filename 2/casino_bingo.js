@@ -57,7 +57,7 @@ var delayTime=1000, _autoNextID=0;
 
 mainCycle();
 
-var cc = $('<div class="wg"><style>.wg{position:absolute;z-index:20;top:0}.wg button{width:64px;height:22px;padding:0;margin-right:4px}</style></div>').appendTo(document.body),
+var cc = $('<div class="wg"><style>.wg{position:absolute;z-index:100000;top:0}.wg button{width:64px;height:22px;padding:0;margin-right:4px}</style></div>').appendTo(document.body),
 	cmd1 = $('<button>连续挂机</button>').appendTo(cc),
 	cmd2 = $('<button>我自己点</button>').appendTo(cc),
 	cmd3 = $('<button>别开快车</button>').appendTo(cc),
