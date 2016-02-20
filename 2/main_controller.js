@@ -9,6 +9,7 @@ var defaultWGConfig = {
 		kPokerEnable:{title:"启用扑克助手","default":true},
 		kSlotEnable:{title:"启用拉霸助手","default":true},
 		kBingoEnable:{title:"启用宾果助手","default":true},
+		kWRTEnable:{title:"战斗时间显示到秒","default":true},
 		kBloodEnable:{title:"显示怪物血量","default":true}
 	}
 };
@@ -146,6 +147,9 @@ var checkLoadModule = function(){
 	else if(/raid\/\d+/i.test(location.hash) || /raid_multi\/\d+/i.test(location.hash) || /raid_semi\/\d+/i.test(location.hash)){
 		if(getWGConfig('kBloodEnable')){
 			createScriptLoader('monster_hp.js?v=1');
+		}
+		if(getWGConfig('kWRTEnable')){
+			createScriptLoader('raid_timer.js?v=1');
 		}
 	}
 
