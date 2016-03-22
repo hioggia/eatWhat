@@ -17,7 +17,7 @@
 		textArea.style.outline = "none";
 		textArea.style.boxShadow = "none";
 		textArea.style.background = "transparent";
-		textArea.value = target.innerHTML;
+		textArea.value = stage.pJsnData.boss.param[0].name+'\r\n参戦ID：'+target.innerHTML;
 
 		document.body.appendChild(textArea);
 		textArea.select();
