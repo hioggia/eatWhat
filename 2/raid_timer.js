@@ -1,5 +1,7 @@
 (function init(){
 
+	var tid = 0;
+
 	function setSecond(val){
 		var cont = $('.prt-clocl-value .txt-info-num');
 
@@ -12,19 +14,16 @@
 		}
 	}
 
-	function checkSecond(cl){
-		for(var i=0;i<cl.length;i++){
-			if(cl[i].name=='timer'){
-				var s = cl[i].oldValue%60;
-				setSecond(('0'+s+'0').slice(-3,-1));
-			}
-		}
+	function checkSecond(){
+		var s = stage.pJsnData.timer%60;
+		setSecond(('0'+s+'0').slice(-3,-1));
+		tid = setTimeout(checkSecond,1000);
 	}
 	
 	if(('stage' in window) && ('pJsnData' in stage)){
-		Object.observe(stage.pJsnData,checkSecond);
+		tid = setTimeout(checkSecond,1000);
 		registerRouteChangeDestroyer(function(callback){
-			Object.unobserve(stage.pJsnData,checkSecond);
+			clearTimeout(tid);
 			callback();
 		});
 		console.info('显秒！');
