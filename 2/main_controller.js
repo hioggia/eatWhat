@@ -178,6 +178,10 @@ var checkLoadModule = function(){
 		createScriptLoader('coopraid_copy_number.js');
 	}
 
+	else if(/event\/teamraid\d+\/top/i.test(location.hash) || /event\/teamraid\d+$/i.test(location.hash)){
+		createScriptLoader('teamraid_copy_rival.js?v=1');
+	}
+
 	else if(/quest\/assist/i.test(location.hash)){
 		if(getWGConfig('kStaminaEnable')){
 			createScriptLoader('mypage_stamina.js?v=1');

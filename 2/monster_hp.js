@@ -27,16 +27,16 @@
 		.prt-targeting-area[type="s2"] .wg-hp-area div[target="2"],\
 		.prt-targeting-area[type="m2"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:172px;width:110px;height:40px}\
 		.prt-targeting-area[type="s3"] .wg-hp-area div[target="1"],\
-		.prt-targeting-area[type="m3"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:0px;width:106px;height:40px}\
+		.prt-targeting-area[type="m3"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:0px;width:106px;height:50px}\
 		.prt-targeting-area[type="s3"] .wg-hp-area div[target="2"],\
-		.prt-targeting-area[type="m3"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:214px;width:106px;height:40px}\
+		.prt-targeting-area[type="m3"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:214px;width:106px;height:50px}\
 		.prt-targeting-area[type="s3"] .wg-hp-area div[target="3"],\
-		.prt-targeting-area[type="m3"] .wg-hp-area div[target="3"]{position:absolute;top:47px;left:109px;width:106px;height:40px}\
-		.prt-targeting-area[type="l2"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:33px;width:110px;height:40px}\
-		.prt-targeting-area[type="l2"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:172px;width:110px;height:40px}\
-		.prt-targeting-area[type="l3"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:0px;width:106px;height:40px}\
-		.prt-targeting-area[type="l3"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:214px;width:106px;height:40px}\
-		.prt-targeting-area[type="l3"] .wg-hp-area div[target="3"]{position:absolute;top:47px;left:109px;width:106px;height:40px}\
+		.prt-targeting-area[type="m3"] .wg-hp-area div[target="3"]{position:absolute;top:47px;left:109px;width:106px;height:50px}\
+		.prt-targeting-area[type="l2"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:33px;width:110px;height:50px}\
+		.prt-targeting-area[type="l2"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:172px;width:110px;height:50px}\
+		.prt-targeting-area[type="l3"] .wg-hp-area div[target="1"]{position:absolute;top:47px;left:0px;width:106px;height:50px}\
+		.prt-targeting-area[type="l3"] .wg-hp-area div[target="2"]{position:absolute;top:47px;left:214px;width:106px;height:50px}\
+		.prt-targeting-area[type="l3"] .wg-hp-area div[target="3"]{position:absolute;top:47px;left:109px;width:106px;height:50px}\
 		.prt-targeting-area[type="s2"] .wg-hp-area div[target="3"],\
 		.prt-targeting-area[type="m2"] .wg-hp-area div[target="3"],\
 		.prt-targeting-area[type="l2"] .wg-hp-area div[target="3"],\
