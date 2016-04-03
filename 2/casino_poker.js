@@ -15,6 +15,7 @@
 	,ih = function(tex){return $('.prt-navigation').text()==tex}
 	,sstat = function(){var _=[],__=read.medal();for(var k in st){_.push(k+': '+st[k])}_.push('现在游戏筹码: '+__);_.push('累计筹码收益: '+(__-st.初始游戏筹码));console.info(_.join(''+nl+''))}
 	,gsay = function(sor,sow){if(sm.gchoice!=''){if((sm.gchoice=='大' && read.doub(1).点数 < read.doub(2).点数) || (sm.gchoice!='大' && read.doub(1).点数 > read.doub(2).点数)){st.薛定谔猜对次数++;sout(sor)}else{st.薛定谔猜错次数++;sout(sow)}sm.gchoice=''}}
+	,moi = new MutationObserver(function(ms){var b=tz('.prt-bet');console.log(b)})
 	,sm = {
 		running:false,
 		timeout:0,
@@ -412,6 +413,7 @@
 		sst();
 		sm.running=true;
 		uo.sleep(uo.deck);
+		moi.observe(document.querySelector('.prt-navigation'),{childList:true});
 	}
 	,sst = function(){
 		var n=new Date().getTime();
@@ -455,7 +457,7 @@
 				样本收集多少份才允许一站到底:30,
 				点击动作延迟几秒:1.5,
 				随机增加的延迟秒数:1,
-				自动值守不超过几小时:3.5,
+				自动值守不超过几小时:2.5,
 				自动值守停止后休息几小时再继续值守:0.5,
 				随机增加的休息小时数:0
 			},
@@ -500,7 +502,7 @@
 		样本:{get:ssamp}
 	});
 	if(md.pf==1){
-		cmd2.text('安全');
+		cmd2.text('安全中');
 	}
 	cmd1.on(et,function(){
 		if(cmd1.text()=='停止'){
@@ -512,11 +514,11 @@
 		}
 	});
 	cmd2.on(et,function(){
-		if(cmd2.text()=='高速'){
-			cmd2.text('安全');
+		if(cmd2.text()=='高速中'){
+			cmd2.text('安全中');
 			md.pf=1;
 		}else{
-			cmd2.text('高速');
+			cmd2.text('高速中');
 			md.pf=0;
 		}
 		sst();

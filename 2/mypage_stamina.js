@@ -1,4 +1,8 @@
 (function(){
+	
+
+//for event_gacha
+localStorage['wg_crazy_gacha'] = false;
 
 	return;
 	
