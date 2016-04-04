@@ -435,7 +435,7 @@
 	,cc = $('<div class="wg"><style>.wg{position:absolute;z-index:250001;top:2px;left:2px}.wg button{width:42px;height:22px;margin-right:4px}</style></div>').appendTo(document.body)
 	,cmd3 = $('<button style="width:52px">下局停</button>').appendTo(cc)
 	,cmd1 = $('<button>停止</button>').appendTo(cc)
-	,cmd2 = $('<button>高速</button>').appendTo(cc)
+	,cmd2 = $('<button>高速中</button>').appendTo(cc)
 	,ela = $('<div></div>').appendTo('.prt-button').css({position:'absolute',top:'100%',left:'0',color:'white'})
 	,sela = function(){
 		ela.html('累计回数：'+(st.累计牌桌游戏次数)+'，双倍回数：'+(st.累计双倍游戏次数)+'，成绩：'+(read.medal()-st.初始游戏筹码));
