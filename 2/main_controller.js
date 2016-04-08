@@ -194,6 +194,10 @@ var checkLoadModule = function(){
 		}
 	}
 
+	else if(/quest\/stage/i.test(location.hash)){
+		createScriptLoader('quest_stage.js?v=1');
+	}
+
 	else if(/event\/[\w\d]+\/gacha\//i.test(location.hash)){
 		createScriptLoader('event_gacha.js?v=1');
 	}
