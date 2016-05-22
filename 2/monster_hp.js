@@ -18,7 +18,7 @@
 
 	$('<div class="wg-hp-area"><div class="hp-show" target="1"><span></span></div><div class="hp-show" target="2"><span></span></div><div class="hp-show" target="3"><span></span></div></div>').appendTo('.prt-targeting-area');
 	$('<style>[class^="lis-character"] .txt-hp-value.hide-hp::after{display:none!important;background:none!important}\
-		.prt-targeting-area .wg-hp-area{position:absolute;top:10px;left:0px;width:320px;height:1px;pointer-events:none;}\
+		.prt-targeting-area .wg-hp-area{position:absolute;top:-40px;left:0px;width:320px;height:1px;pointer-events:none;}\
 		.prt-targeting-area[type="s1"] .wg-hp-area div[target="1"],\
 		.prt-targeting-area[type="m1"] .wg-hp-area div[target="1"],\
 		.prt-targeting-area[type="l1"] .wg-hp-area div[target="1"]{position:absolute;top:42px;left:30px;width:260px;height:40px}\
