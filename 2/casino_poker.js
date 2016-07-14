@@ -419,7 +419,7 @@
 		var n=new Date().getTime();
 		md.st1 = n+av.模式设定[md.pf].自动值守不超过几小时*60*60*1000;
 		md.st2 = md.st1+(av.模式设定[md.pf].自动值守停止后休息几小时再继续值守+av.模式设定[md.pf].随机增加的休息小时数*Math.random())*60*60*1000;
-		createjs.Ticker.setFPS(av.模式设定[md.pf].FPS);
+//		createjs.Ticker.setFPS(av.模式设定[md.pf].FPS);
 		smd();
 	}
 	,pgo = function(){
@@ -531,7 +531,7 @@
 		}
 	});
 	setTimeout(function(){
-		createjs.Ticker.setFPS(av.模式设定[md.pf].FPS);
+//		createjs.Ticker.setFPS(av.模式设定[md.pf].FPS);
 		if(av.立即自动值守){
 			boot();
 		}

@@ -51,7 +51,7 @@ function g(){
 		t=JSON.parse(t);
 		l=t.l,a=t.a,c=t.c;
 	}
-	createjs.Ticker.setFPS(300);
+//	createjs.Ticker.setFPS(300);
 	nextStopTime=s();
 	if(new Date().getTime()>nextStopTime){
 		nextStopTime=new Date().getTime()+1000*60*60*2;
